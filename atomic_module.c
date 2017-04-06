@@ -4,7 +4,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Lance Chao");
-MODULE_DESCRIPTION("Test Kernel atomics");
+MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 
 #ifdef BUILTIN
 static int counter_gcc = 0;
