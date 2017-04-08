@@ -75,17 +75,68 @@ void test_atomic_add_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_add_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
     atomic_add(1, &counter);
+    WARN_ON(counter.counter != 1);
 #endif
-    printk(KERN_INFO "Counter value is %d\n", counter);
 }
-void test_atomic_sub_fetch(void) {}
-void test_atomic_and_fetch(void) {}
-void test_atomic_xor_fetch(void) {}
-void test_atomic_or_fetch(void) {}
-void test_atomic_nand_fetch(void) {}
+void test_atomic_sub_fetch(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_sub_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != -1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_sub(1, &counter);
+    WARN_ON(counter.counter != -1);
+#endif
+}
+void test_atomic_and_fetch(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_and_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != 0);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_and(1, &counter);
+    WARN_ON(counter.counter != 0);
+#endif
+}
+void test_atomic_xor_fetch(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_xor_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_xor(1, &counter);
+    WARN_ON(counter.counter != 1);
+#endif
+}
+void test_atomic_or_fetch(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_or_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_or(1, &counter);
+    WARN_ON(counter.counter != 1);
+#endif
+}
+void test_atomic_nand_fetch(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_nand_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    WARN_ON(counter != 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_nand(1, &counter);
+    WARN_ON(counter.counter != 1);
+#endif
+}
 /*----------------------------------------------------------------*/
 /*----fetch + operation ------------------------------------------*/
 /*----------------------------------------------------------------*/
