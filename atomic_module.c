@@ -93,7 +93,9 @@ void __attribute__((optimize("O0"))) test_atomic_add_fetch(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_add(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
@@ -106,7 +108,9 @@ void __attribute__((optimize("O0"))) test_atomic_sub_fetch(void) {
     assert(counter == -1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_sub(1, &counter);
+    NOOP;
     assert(counter.counter == -1);
 #endif
 }
@@ -119,7 +123,9 @@ void __attribute__((optimize("O0"))) test_atomic_and_fetch(void) {
     assert(counter == 0);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_and(1, &counter);
+    NOOP;
     assert(counter.counter == 0);
 #endif
 }
@@ -132,7 +138,9 @@ void __attribute__((optimize("O0"))) test_atomic_xor_fetch(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_xor(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
@@ -145,7 +153,9 @@ void __attribute__((optimize("O0"))) test_atomic_or_fetch(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_or(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
@@ -161,7 +171,7 @@ void __attribute__((optimize("O0"))) test_atomic_nand_fetch(void) {
 /*----------------------------------------------------------------*/
 /*----fetch + operation ------------------------------------------*/
 /*----------------------------------------------------------------*/
-void test_atomic_fetch_add(void) {
+void __attribute__((optimize("O0"))) test_atomic_fetch_add(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -170,11 +180,13 @@ void test_atomic_fetch_add(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_add(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
-void test_atomic_fetch_sub(void) {
+void __attribute__((optimize("O0")))  test_atomic_fetch_sub(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -183,11 +195,13 @@ void test_atomic_fetch_sub(void) {
     assert(counter == -1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_sub(1, &counter);
+    NOOP;
     assert(counter.counter == -1);
 #endif
 }
-void test_atomic_fetch_and(void) {
+void __attribute__((optimize("O0")))  test_atomic_fetch_and(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -196,11 +210,13 @@ void test_atomic_fetch_and(void) {
     assert(counter == 0);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_and(1, &counter);
+    NOOP;
     assert(counter.counter == 0);
 #endif
 }
-void test_atomic_fetch_xor(void) {
+void __attribute__((optimize("O0")))  test_atomic_fetch_xor(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -209,11 +225,13 @@ void test_atomic_fetch_xor(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_xor(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
-void test_atomic_fetch_or(void) {
+void __attribute__((optimize("O0")))  test_atomic_fetch_or(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -222,11 +240,13 @@ void test_atomic_fetch_or(void) {
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
+    NOOP;
     atomic_or(1, &counter);
+    NOOP;
     assert(counter.counter == 1);
 #endif
 }
-void test_atomic_fetch_nand(void) {
+void __attribute__((optimize("O0")))  test_atomic_fetch_nand(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
