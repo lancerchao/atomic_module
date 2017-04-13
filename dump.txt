@@ -522,43 +522,45 @@ Disassembly of section .text:
  78d:	00 00 
  78f:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
  793:	31 c0                	xor    %eax,%eax
- 795:	b8 01 00 00 00       	mov    $0x1,%eax
- 79a:	89 c2                	mov    %eax,%edx
- 79c:	86 55 ee             	xchg   %dl,-0x12(%rbp)
- 79f:	86 45 ef             	xchg   %al,-0x11(%rbp)
- 7a2:	84 d2                	test   %dl,%dl
- 7a4:	89 c3                	mov    %eax,%ebx
- 7a6:	75 26                	jne    7ce <test_atomic_test_and_set+0x5e>
- 7a8:	80 7d ee 00          	cmpb   $0x0,-0x12(%rbp)
- 7ac:	74 20                	je     7ce <test_atomic_test_and_set+0x5e>
- 7ae:	84 db                	test   %bl,%bl
- 7b0:	74 3d                	je     7ef <test_atomic_test_and_set+0x7f>
- 7b2:	80 7d ef 00          	cmpb   $0x0,-0x11(%rbp)
- 7b6:	74 37                	je     7ef <test_atomic_test_and_set+0x7f>
- 7b8:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
- 7bc:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 7c3:	00 00 
- 7c5:	75 49                	jne    810 <test_atomic_test_and_set+0xa0>
- 7c7:	48 83 c4 10          	add    $0x10,%rsp
- 7cb:	5b                   	pop    %rbx
- 7cc:	5d                   	pop    %rbp
- 7cd:	c3                   	retq   
- 7ce:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 7d5:	ba d7 00 00 00       	mov    $0xd7,%edx
- 7da:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 7e1:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 7e8:	e8 00 00 00 00       	callq  7ed <test_atomic_test_and_set+0x7d>
- 7ed:	eb bf                	jmp    7ae <test_atomic_test_and_set+0x3e>
- 7ef:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 7f6:	ba d8 00 00 00       	mov    $0xd8,%edx
- 7fb:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 802:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 809:	e8 00 00 00 00       	callq  80e <test_atomic_test_and_set+0x9e>
- 80e:	eb a8                	jmp    7b8 <test_atomic_test_and_set+0x48>
- 810:	e8 00 00 00 00       	callq  815 <test_atomic_test_and_set+0xa5>
- 815:	90                   	nop
- 816:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 81d:	00 00 00 
+ 795:	90                   	nop
+ 796:	b8 01 00 00 00       	mov    $0x1,%eax
+ 79b:	89 c2                	mov    %eax,%edx
+ 79d:	86 55 ee             	xchg   %dl,-0x12(%rbp)
+ 7a0:	90                   	nop
+ 7a1:	90                   	nop
+ 7a2:	86 45 ef             	xchg   %al,-0x11(%rbp)
+ 7a5:	89 c3                	mov    %eax,%ebx
+ 7a7:	90                   	nop
+ 7a8:	84 d2                	test   %dl,%dl
+ 7aa:	75 26                	jne    7d2 <test_atomic_test_and_set+0x62>
+ 7ac:	80 7d ee 00          	cmpb   $0x0,-0x12(%rbp)
+ 7b0:	74 20                	je     7d2 <test_atomic_test_and_set+0x62>
+ 7b2:	84 db                	test   %bl,%bl
+ 7b4:	74 3d                	je     7f3 <test_atomic_test_and_set+0x83>
+ 7b6:	80 7d ef 00          	cmpb   $0x0,-0x11(%rbp)
+ 7ba:	74 37                	je     7f3 <test_atomic_test_and_set+0x83>
+ 7bc:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+ 7c0:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 7c7:	00 00 
+ 7c9:	75 49                	jne    814 <test_atomic_test_and_set+0xa4>
+ 7cb:	48 83 c4 10          	add    $0x10,%rsp
+ 7cf:	5b                   	pop    %rbx
+ 7d0:	5d                   	pop    %rbp
+ 7d1:	c3                   	retq   
+ 7d2:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 7d9:	ba db 00 00 00       	mov    $0xdb,%edx
+ 7de:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 7e5:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 7ec:	e8 00 00 00 00       	callq  7f1 <test_atomic_test_and_set+0x81>
+ 7f1:	eb bf                	jmp    7b2 <test_atomic_test_and_set+0x42>
+ 7f3:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 7fa:	ba dc 00 00 00       	mov    $0xdc,%edx
+ 7ff:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 806:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 80d:	e8 00 00 00 00       	callq  812 <test_atomic_test_and_set+0xa2>
+ 812:	eb a8                	jmp    7bc <test_atomic_test_and_set+0x4c>
+ 814:	e8 00 00 00 00       	callq  819 <test_atomic_test_and_set+0xa9>
+ 819:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
 
 0000000000000820 <test_atomic_clear>:
  820:	e8 00 00 00 00       	callq  825 <test_atomic_clear+0x5>
@@ -572,7 +574,7 @@ Disassembly of section .text:
  83c:	c6 45 e6 01          	movb   $0x1,-0x1a(%rbp)
  840:	48 8d 45 e6          	lea    -0x1a(%rbp),%rax
  844:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
- 848:	c6 45 e7 01          	movb   $0x1,-0x19(%rbp)
+ 848:	c6 45 e7 00          	movb   $0x0,-0x19(%rbp)
  84c:	48 8d 45 e7          	lea    -0x19(%rbp),%rax
  850:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
  854:	90                   	nop
@@ -591,7 +593,7 @@ Disassembly of section .text:
  878:	84 c0                	test   %al,%al
  87a:	74 1f                	je     89b <test_atomic_clear+0x7b>
  87c:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 883:	ba e5 00 00 00       	mov    $0xe5,%edx
+ 883:	ba e9 00 00 00       	mov    $0xe9,%edx
  888:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
  88f:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
  896:	e8 00 00 00 00       	callq  89b <test_atomic_clear+0x7b>
@@ -599,7 +601,7 @@ Disassembly of section .text:
  89f:	84 c0                	test   %al,%al
  8a1:	74 1f                	je     8c2 <test_atomic_clear+0xa2>
  8a3:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 8aa:	ba e6 00 00 00       	mov    $0xe6,%edx
+ 8aa:	ba ea 00 00 00       	mov    $0xea,%edx
  8af:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
  8b6:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
  8bd:	e8 00 00 00 00       	callq  8c2 <test_atomic_clear+0xa2>
@@ -628,7 +630,7 @@ Disassembly of section .text:
  902:	3b 45 f8             	cmp    -0x8(%rbp),%eax
  905:	74 1f                	je     926 <test_atomic_thread_fence+0x46>
  907:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 90e:	ba f2 00 00 00       	mov    $0xf2,%edx
+ 90e:	ba f6 00 00 00       	mov    $0xf6,%edx
  913:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
  91a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
  921:	e8 00 00 00 00       	callq  926 <test_atomic_thread_fence+0x46>
@@ -651,7 +653,7 @@ Disassembly of section .text:
  94f:	3b 45 f8             	cmp    -0x8(%rbp),%eax
  952:	74 1f                	je     973 <test_atomic_signal_fence+0x43>
  954:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 95b:	ba fe 00 00 00       	mov    $0xfe,%edx
+ 95b:	ba 02 01 00 00       	mov    $0x102,%edx
  960:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
  967:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
  96e:	e8 00 00 00 00       	callq  973 <test_atomic_signal_fence+0x43>
