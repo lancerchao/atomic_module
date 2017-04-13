@@ -41,241 +41,237 @@ Disassembly of section .text:
   40:	e8 00 00 00 00       	callq  45 <test_atomic_load_n+0x5>
   45:	55                   	push   %rbp
   46:	48 89 e5             	mov    %rsp,%rbp
-  49:	48 83 ec 18          	sub    $0x18,%rsp
-  4d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
-  54:	00 00 
-  56:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-  5a:	31 c0                	xor    %eax,%eax
-  5c:	c7 45 e8 63 00 00 00 	movl   $0x63,-0x18(%rbp)
-  63:	48 8d 45 e8          	lea    -0x18(%rbp),%rax
-  67:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  6b:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  6f:	8b 00                	mov    (%rax),%eax
-  71:	89 45 ec             	mov    %eax,-0x14(%rbp)
-  74:	8b 55 e8             	mov    -0x18(%rbp),%edx
-  77:	8b 45 ec             	mov    -0x14(%rbp),%eax
-  7a:	39 c2                	cmp    %eax,%edx
-  7c:	74 1f                	je     9d <test_atomic_load_n+0x5d>
-  7e:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
-  85:	ba 1b 00 00 00       	mov    $0x1b,%edx
-  8a:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
-  91:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
-  98:	e8 00 00 00 00       	callq  9d <test_atomic_load_n+0x5d>
-  9d:	90                   	nop
-  9e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-  a2:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
-  a9:	00 00 
-  ab:	74 05                	je     b2 <test_atomic_load_n+0x72>
-  ad:	e8 00 00 00 00       	callq  b2 <test_atomic_load_n+0x72>
-  b2:	c9                   	leaveq 
-  b3:	c3                   	retq   
-  b4:	66 90                	xchg   %ax,%ax
-  b6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-  bd:	00 00 00 
+  49:	48 83 ec 08          	sub    $0x8,%rsp
+  4d:	c7 45 fc 63 00 00 00 	movl   $0x63,-0x4(%rbp)
+  54:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  57:	83 f8 63             	cmp    $0x63,%eax
+  5a:	74 1f                	je     7b <test_atomic_load_n+0x3b>
+  5c:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+  63:	ba 1b 00 00 00       	mov    $0x1b,%edx
+  68:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  6f:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  76:	e8 00 00 00 00       	callq  7b <test_atomic_load_n+0x3b>
+  7b:	c9                   	leaveq 
+  7c:	c3                   	retq   
+  7d:	0f 1f 00             	nopl   (%rax)
 
-00000000000000c0 <test_atomic_store_n>:
-  c0:	e8 00 00 00 00       	callq  c5 <test_atomic_store_n+0x5>
+0000000000000080 <test_atomic_store_n>:
+  80:	e8 00 00 00 00       	callq  85 <test_atomic_store_n+0x5>
+  85:	55                   	push   %rbp
+  86:	48 89 e5             	mov    %rsp,%rbp
+  89:	48 83 ec 08          	sub    $0x8,%rsp
+  8d:	c7 45 fc 63 00 00 00 	movl   $0x63,-0x4(%rbp)
+  94:	8b 55 fc             	mov    -0x4(%rbp),%edx
+  97:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  9a:	39 c2                	cmp    %eax,%edx
+  9c:	74 1f                	je     bd <test_atomic_store_n+0x3d>
+  9e:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+  a5:	ba 2b 00 00 00       	mov    $0x2b,%edx
+  aa:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  b1:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  b8:	e8 00 00 00 00       	callq  bd <test_atomic_store_n+0x3d>
+  bd:	c9                   	leaveq 
+  be:	c3                   	retq   
+  bf:	90                   	nop
+
+00000000000000c0 <test_atomic_exchange_n>:
+  c0:	e8 00 00 00 00       	callq  c5 <test_atomic_exchange_n+0x5>
   c5:	55                   	push   %rbp
   c6:	48 89 e5             	mov    %rsp,%rbp
-  c9:	48 83 ec 20          	sub    $0x20,%rsp
+  c9:	48 83 ec 18          	sub    $0x18,%rsp
   cd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
   d4:	00 00 
   d6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
   da:	31 c0                	xor    %eax,%eax
-  dc:	c7 45 e8 63 00 00 00 	movl   $0x63,-0x18(%rbp)
-  e3:	8b 45 e8             	mov    -0x18(%rbp),%eax
-  e6:	48 8d 55 e4          	lea    -0x1c(%rbp),%rdx
-  ea:	48 89 55 f0          	mov    %rdx,-0x10(%rbp)
-  ee:	89 45 ec             	mov    %eax,-0x14(%rbp)
-  f1:	8b 55 ec             	mov    -0x14(%rbp),%edx
-  f4:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  f8:	89 10                	mov    %edx,(%rax)
-  fa:	8b 55 e4             	mov    -0x1c(%rbp),%edx
-  fd:	8b 45 e8             	mov    -0x18(%rbp),%eax
- 100:	39 c2                	cmp    %eax,%edx
- 102:	74 1f                	je     123 <test_atomic_store_n+0x63>
- 104:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 10b:	ba 2b 00 00 00       	mov    $0x2b,%edx
- 110:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 117:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 11e:	e8 00 00 00 00       	callq  123 <test_atomic_store_n+0x63>
- 123:	90                   	nop
- 124:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 128:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 12f:	00 00 
- 131:	74 05                	je     138 <test_atomic_store_n+0x78>
- 133:	e8 00 00 00 00       	callq  138 <test_atomic_store_n+0x78>
- 138:	c9                   	leaveq 
- 139:	c3                   	retq   
- 13a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  dc:	c7 45 ec 31 00 00 00 	movl   $0x31,-0x14(%rbp)
+  e3:	c7 45 f0 63 00 00 00 	movl   $0x63,-0x10(%rbp)
+  ea:	8b 75 f0             	mov    -0x10(%rbp),%esi
+  ed:	48 8d 7d ec          	lea    -0x14(%rbp),%rdi
+  f1:	e8 0a ff ff ff       	callq  0 <atomic_xchg>
+  f6:	89 45 f4             	mov    %eax,-0xc(%rbp)
+  f9:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  fc:	83 f8 31             	cmp    $0x31,%eax
+  ff:	74 1f                	je     120 <test_atomic_exchange_n+0x60>
+ 101:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 108:	ba 3d 00 00 00       	mov    $0x3d,%edx
+ 10d:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 114:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 11b:	e8 00 00 00 00       	callq  120 <test_atomic_exchange_n+0x60>
+ 120:	8b 45 f0             	mov    -0x10(%rbp),%eax
+ 123:	39 45 ec             	cmp    %eax,-0x14(%rbp)
+ 126:	74 1f                	je     147 <test_atomic_exchange_n+0x87>
+ 128:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 12f:	ba 3e 00 00 00       	mov    $0x3e,%edx
+ 134:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 13b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 142:	e8 00 00 00 00       	callq  147 <test_atomic_exchange_n+0x87>
+ 147:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 14b:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 152:	00 00 
+ 154:	74 05                	je     15b <test_atomic_exchange_n+0x9b>
+ 156:	e8 00 00 00 00       	callq  15b <test_atomic_exchange_n+0x9b>
+ 15b:	c9                   	leaveq 
+ 15c:	c3                   	retq   
+ 15d:	0f 1f 00             	nopl   (%rax)
 
-0000000000000140 <test_atomic_exchange_n>:
- 140:	e8 00 00 00 00       	callq  145 <test_atomic_exchange_n+0x5>
- 145:	55                   	push   %rbp
- 146:	48 89 e5             	mov    %rsp,%rbp
- 149:	48 83 ec 18          	sub    $0x18,%rsp
- 14d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 154:	00 00 
- 156:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 15a:	31 c0                	xor    %eax,%eax
- 15c:	c7 45 ec 31 00 00 00 	movl   $0x31,-0x14(%rbp)
- 163:	c7 45 f0 63 00 00 00 	movl   $0x63,-0x10(%rbp)
- 16a:	8b 55 f0             	mov    -0x10(%rbp),%edx
- 16d:	48 8d 45 ec          	lea    -0x14(%rbp),%rax
- 171:	89 d6                	mov    %edx,%esi
- 173:	48 89 c7             	mov    %rax,%rdi
- 176:	e8 85 fe ff ff       	callq  0 <atomic_xchg>
- 17b:	89 45 f4             	mov    %eax,-0xc(%rbp)
- 17e:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 181:	83 f8 31             	cmp    $0x31,%eax
- 184:	74 1f                	je     1a5 <test_atomic_exchange_n+0x65>
- 186:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 18d:	ba 3d 00 00 00       	mov    $0x3d,%edx
- 192:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 199:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 1a0:	e8 00 00 00 00       	callq  1a5 <test_atomic_exchange_n+0x65>
- 1a5:	8b 55 ec             	mov    -0x14(%rbp),%edx
- 1a8:	8b 45 f0             	mov    -0x10(%rbp),%eax
- 1ab:	39 c2                	cmp    %eax,%edx
- 1ad:	74 1f                	je     1ce <test_atomic_exchange_n+0x8e>
- 1af:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 1b6:	ba 3e 00 00 00       	mov    $0x3e,%edx
- 1bb:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 1c2:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 1c9:	e8 00 00 00 00       	callq  1ce <test_atomic_exchange_n+0x8e>
- 1ce:	90                   	nop
- 1cf:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 1d3:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 1da:	00 00 
- 1dc:	74 05                	je     1e3 <test_atomic_exchange_n+0xa3>
- 1de:	e8 00 00 00 00       	callq  1e3 <test_atomic_exchange_n+0xa3>
- 1e3:	c9                   	leaveq 
- 1e4:	c3                   	retq   
- 1e5:	90                   	nop
- 1e6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 1ed:	00 00 00 
+0000000000000160 <test_atomic_compare_exchange_n>:
+ 160:	e8 00 00 00 00       	callq  165 <test_atomic_compare_exchange_n+0x5>
+ 165:	55                   	push   %rbp
+ 166:	48 89 e5             	mov    %rsp,%rbp
+ 169:	48 83 ec 18          	sub    $0x18,%rsp
+ 16d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 174:	00 00 
+ 176:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 17a:	31 c0                	xor    %eax,%eax
+ 17c:	c7 45 ec 31 00 00 00 	movl   $0x31,-0x14(%rbp)
+ 183:	c7 45 f0 31 00 00 00 	movl   $0x31,-0x10(%rbp)
+ 18a:	c7 45 f4 63 00 00 00 	movl   $0x63,-0xc(%rbp)
+ 191:	8b 55 f4             	mov    -0xc(%rbp),%edx
+ 194:	8b 45 f0             	mov    -0x10(%rbp),%eax
+ 197:	f0 0f b1 55 ec       	lock cmpxchg %edx,-0x14(%rbp)
+ 19c:	8b 45 f4             	mov    -0xc(%rbp),%eax
+ 19f:	39 45 ec             	cmp    %eax,-0x14(%rbp)
+ 1a2:	74 1f                	je     1c3 <test_atomic_compare_exchange_n+0x63>
+ 1a4:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 1ab:	ba 51 00 00 00       	mov    $0x51,%edx
+ 1b0:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 1b7:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 1be:	e8 00 00 00 00       	callq  1c3 <test_atomic_compare_exchange_n+0x63>
+ 1c3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 1c7:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 1ce:	00 00 
+ 1d0:	74 05                	je     1d7 <test_atomic_compare_exchange_n+0x77>
+ 1d2:	e8 00 00 00 00       	callq  1d7 <test_atomic_compare_exchange_n+0x77>
+ 1d7:	c9                   	leaveq 
+ 1d8:	c3                   	retq   
+ 1d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
 
-00000000000001f0 <test_atomic_compare_exchange_n>:
- 1f0:	e8 00 00 00 00       	callq  1f5 <test_atomic_compare_exchange_n+0x5>
- 1f5:	55                   	push   %rbp
- 1f6:	48 89 e5             	mov    %rsp,%rbp
- 1f9:	48 83 ec 30          	sub    $0x30,%rsp
- 1fd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 204:	00 00 
- 206:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 20a:	31 c0                	xor    %eax,%eax
- 20c:	c7 45 d0 31 00 00 00 	movl   $0x31,-0x30(%rbp)
- 213:	c7 45 d4 31 00 00 00 	movl   $0x31,-0x2c(%rbp)
- 21a:	c7 45 d8 63 00 00 00 	movl   $0x63,-0x28(%rbp)
- 221:	8b 45 d8             	mov    -0x28(%rbp),%eax
- 224:	8b 55 d4             	mov    -0x2c(%rbp),%edx
- 227:	48 8d 4d d0          	lea    -0x30(%rbp),%rcx
- 22b:	48 89 4d e8          	mov    %rcx,-0x18(%rbp)
- 22f:	89 55 dc             	mov    %edx,-0x24(%rbp)
- 232:	89 45 e0             	mov    %eax,-0x20(%rbp)
- 235:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
- 239:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
- 23d:	48 8b 75 f0          	mov    -0x10(%rbp),%rsi
- 241:	8b 55 e0             	mov    -0x20(%rbp),%edx
- 244:	8b 45 dc             	mov    -0x24(%rbp),%eax
- 247:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
- 24b:	f0 0f b1 16          	lock cmpxchg %edx,(%rsi)
- 24f:	89 45 e4             	mov    %eax,-0x1c(%rbp)
- 252:	8b 55 d0             	mov    -0x30(%rbp),%edx
- 255:	8b 45 d8             	mov    -0x28(%rbp),%eax
- 258:	39 c2                	cmp    %eax,%edx
- 25a:	74 1f                	je     27b <test_atomic_compare_exchange_n+0x8b>
- 25c:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 263:	ba 51 00 00 00       	mov    $0x51,%edx
- 268:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 26f:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 276:	e8 00 00 00 00       	callq  27b <test_atomic_compare_exchange_n+0x8b>
- 27b:	90                   	nop
- 27c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 280:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 287:	00 00 
- 289:	74 05                	je     290 <test_atomic_compare_exchange_n+0xa0>
- 28b:	e8 00 00 00 00       	callq  290 <test_atomic_compare_exchange_n+0xa0>
- 290:	c9                   	leaveq 
- 291:	c3                   	retq   
- 292:	0f 1f 40 00          	nopl   0x0(%rax)
- 296:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 29d:	00 00 00 
+00000000000001e0 <test_atomic_add_fetch>:
+ 1e0:	e8 00 00 00 00       	callq  1e5 <test_atomic_add_fetch+0x5>
+ 1e5:	55                   	push   %rbp
+ 1e6:	48 89 e5             	mov    %rsp,%rbp
+ 1e9:	48 83 ec 10          	sub    $0x10,%rsp
+ 1ed:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 1f4:	00 00 
+ 1f6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 1fa:	31 c0                	xor    %eax,%eax
+ 1fc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 203:	90                   	nop
+ 204:	f0 83 45 f4 01       	lock addl $0x1,-0xc(%rbp)
+ 209:	90                   	nop
+ 20a:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 20e:	74 1f                	je     22f <test_atomic_add_fetch+0x4f>
+ 210:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 217:	ba 63 00 00 00       	mov    $0x63,%edx
+ 21c:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 223:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 22a:	e8 00 00 00 00       	callq  22f <test_atomic_add_fetch+0x4f>
+ 22f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 233:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 23a:	00 00 
+ 23c:	74 05                	je     243 <test_atomic_add_fetch+0x63>
+ 23e:	e8 00 00 00 00       	callq  243 <test_atomic_add_fetch+0x63>
+ 243:	c9                   	leaveq 
+ 244:	c3                   	retq   
+ 245:	90                   	nop
+ 246:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+ 24d:	00 00 00 
 
-00000000000002a0 <test_atomic_add_fetch>:
- 2a0:	e8 00 00 00 00       	callq  2a5 <test_atomic_add_fetch+0x5>
- 2a5:	55                   	push   %rbp
- 2a6:	48 89 e5             	mov    %rsp,%rbp
- 2a9:	48 83 ec 18          	sub    $0x18,%rsp
- 2ad:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 2b4:	00 00 
- 2b6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 2ba:	31 c0                	xor    %eax,%eax
- 2bc:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
- 2c3:	90                   	nop
- 2c4:	c7 45 ec 01 00 00 00 	movl   $0x1,-0x14(%rbp)
- 2cb:	48 8d 45 e8          	lea    -0x18(%rbp),%rax
- 2cf:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
- 2d3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
- 2d7:	8b 55 ec             	mov    -0x14(%rbp),%edx
- 2da:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
- 2de:	f0 01 10             	lock add %edx,(%rax)
- 2e1:	90                   	nop
- 2e2:	8b 45 e8             	mov    -0x18(%rbp),%eax
- 2e5:	83 f8 01             	cmp    $0x1,%eax
- 2e8:	74 1f                	je     309 <test_atomic_add_fetch+0x69>
- 2ea:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 2f1:	ba 63 00 00 00       	mov    $0x63,%edx
- 2f6:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 2fd:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 304:	e8 00 00 00 00       	callq  309 <test_atomic_add_fetch+0x69>
- 309:	90                   	nop
- 30a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 30e:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 315:	00 00 
- 317:	74 05                	je     31e <test_atomic_add_fetch+0x7e>
- 319:	e8 00 00 00 00       	callq  31e <test_atomic_add_fetch+0x7e>
- 31e:	c9                   	leaveq 
- 31f:	c3                   	retq   
+0000000000000250 <test_atomic_sub_fetch>:
+ 250:	e8 00 00 00 00       	callq  255 <test_atomic_sub_fetch+0x5>
+ 255:	55                   	push   %rbp
+ 256:	48 89 e5             	mov    %rsp,%rbp
+ 259:	48 83 ec 10          	sub    $0x10,%rsp
+ 25d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 264:	00 00 
+ 266:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 26a:	31 c0                	xor    %eax,%eax
+ 26c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 273:	90                   	nop
+ 274:	f0 83 6d f4 01       	lock subl $0x1,-0xc(%rbp)
+ 279:	90                   	nop
+ 27a:	83 7d f4 ff          	cmpl   $0xffffffff,-0xc(%rbp)
+ 27e:	74 1f                	je     29f <test_atomic_sub_fetch+0x4f>
+ 280:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 287:	ba 72 00 00 00       	mov    $0x72,%edx
+ 28c:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 293:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 29a:	e8 00 00 00 00       	callq  29f <test_atomic_sub_fetch+0x4f>
+ 29f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 2a3:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 2aa:	00 00 
+ 2ac:	74 05                	je     2b3 <test_atomic_sub_fetch+0x63>
+ 2ae:	e8 00 00 00 00       	callq  2b3 <test_atomic_sub_fetch+0x63>
+ 2b3:	c9                   	leaveq 
+ 2b4:	c3                   	retq   
+ 2b5:	90                   	nop
+ 2b6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+ 2bd:	00 00 00 
 
-0000000000000320 <test_atomic_sub_fetch>:
- 320:	e8 00 00 00 00       	callq  325 <test_atomic_sub_fetch+0x5>
- 325:	55                   	push   %rbp
- 326:	48 89 e5             	mov    %rsp,%rbp
- 329:	48 83 ec 18          	sub    $0x18,%rsp
- 32d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 334:	00 00 
- 336:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 33a:	31 c0                	xor    %eax,%eax
- 33c:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
- 343:	90                   	nop
- 344:	c7 45 ec 01 00 00 00 	movl   $0x1,-0x14(%rbp)
- 34b:	48 8d 45 e8          	lea    -0x18(%rbp),%rax
- 34f:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
- 353:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
- 357:	8b 55 ec             	mov    -0x14(%rbp),%edx
- 35a:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
- 35e:	f0 29 10             	lock sub %edx,(%rax)
- 361:	90                   	nop
- 362:	8b 45 e8             	mov    -0x18(%rbp),%eax
- 365:	83 f8 ff             	cmp    $0xffffffff,%eax
- 368:	74 1f                	je     389 <test_atomic_sub_fetch+0x69>
- 36a:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 371:	ba 72 00 00 00       	mov    $0x72,%edx
- 376:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 37d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 384:	e8 00 00 00 00       	callq  389 <test_atomic_sub_fetch+0x69>
- 389:	90                   	nop
- 38a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 38e:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 395:	00 00 
- 397:	74 05                	je     39e <test_atomic_sub_fetch+0x7e>
- 399:	e8 00 00 00 00       	callq  39e <test_atomic_sub_fetch+0x7e>
- 39e:	c9                   	leaveq 
- 39f:	c3                   	retq   
+00000000000002c0 <test_atomic_and_fetch>:
+ 2c0:	e8 00 00 00 00       	callq  2c5 <test_atomic_and_fetch+0x5>
+ 2c5:	55                   	push   %rbp
+ 2c6:	48 89 e5             	mov    %rsp,%rbp
+ 2c9:	48 83 ec 10          	sub    $0x10,%rsp
+ 2cd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 2d4:	00 00 
+ 2d6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 2da:	31 c0                	xor    %eax,%eax
+ 2dc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 2e3:	90                   	nop
+ 2e4:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 2e8:	bf 01 00 00 00       	mov    $0x1,%edi
+ 2ed:	e8 1e fd ff ff       	callq  10 <atomic_and>
+ 2f2:	90                   	nop
+ 2f3:	83 7d f4 00          	cmpl   $0x0,-0xc(%rbp)
+ 2f7:	74 1f                	je     318 <test_atomic_and_fetch+0x58>
+ 2f9:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 300:	ba 81 00 00 00       	mov    $0x81,%edx
+ 305:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 30c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 313:	e8 00 00 00 00       	callq  318 <test_atomic_and_fetch+0x58>
+ 318:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 31c:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 323:	00 00 
+ 325:	74 05                	je     32c <test_atomic_and_fetch+0x6c>
+ 327:	e8 00 00 00 00       	callq  32c <test_atomic_and_fetch+0x6c>
+ 32c:	c9                   	leaveq 
+ 32d:	c3                   	retq   
+ 32e:	66 90                	xchg   %ax,%ax
 
-00000000000003a0 <test_atomic_and_fetch>:
- 3a0:	e8 00 00 00 00       	callq  3a5 <test_atomic_and_fetch+0x5>
+0000000000000330 <test_atomic_xor_fetch>:
+ 330:	e8 00 00 00 00       	callq  335 <test_atomic_xor_fetch+0x5>
+ 335:	55                   	push   %rbp
+ 336:	48 89 e5             	mov    %rsp,%rbp
+ 339:	48 83 ec 10          	sub    $0x10,%rsp
+ 33d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 344:	00 00 
+ 346:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 34a:	31 c0                	xor    %eax,%eax
+ 34c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 353:	90                   	nop
+ 354:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 358:	bf 01 00 00 00       	mov    $0x1,%edi
+ 35d:	e8 ce fc ff ff       	callq  30 <atomic_xor>
+ 362:	90                   	nop
+ 363:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 367:	74 1f                	je     388 <test_atomic_xor_fetch+0x58>
+ 369:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 370:	ba 90 00 00 00       	mov    $0x90,%edx
+ 375:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 37c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 383:	e8 00 00 00 00       	callq  388 <test_atomic_xor_fetch+0x58>
+ 388:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 38c:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 393:	00 00 
+ 395:	74 05                	je     39c <test_atomic_xor_fetch+0x6c>
+ 397:	e8 00 00 00 00       	callq  39c <test_atomic_xor_fetch+0x6c>
+ 39c:	c9                   	leaveq 
+ 39d:	c3                   	retq   
+ 39e:	66 90                	xchg   %ax,%ax
+
+00000000000003a0 <test_atomic_or_fetch>:
+ 3a0:	e8 00 00 00 00       	callq  3a5 <test_atomic_or_fetch+0x5>
  3a5:	55                   	push   %rbp
  3a6:	48 89 e5             	mov    %rsp,%rbp
  3a9:	48 83 ec 10          	sub    $0x10,%rsp
@@ -285,346 +281,243 @@ Disassembly of section .text:
  3ba:	31 c0                	xor    %eax,%eax
  3bc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
  3c3:	90                   	nop
- 3c4:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 3c8:	48 89 c6             	mov    %rax,%rsi
- 3cb:	bf 01 00 00 00       	mov    $0x1,%edi
- 3d0:	e8 3b fc ff ff       	callq  10 <atomic_and>
- 3d5:	90                   	nop
- 3d6:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 3d9:	85 c0                	test   %eax,%eax
- 3db:	74 1f                	je     3fc <test_atomic_and_fetch+0x5c>
- 3dd:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 3e4:	ba 81 00 00 00       	mov    $0x81,%edx
- 3e9:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 3f0:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 3f7:	e8 00 00 00 00       	callq  3fc <test_atomic_and_fetch+0x5c>
- 3fc:	90                   	nop
- 3fd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 401:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 408:	00 00 
- 40a:	74 05                	je     411 <test_atomic_and_fetch+0x71>
- 40c:	e8 00 00 00 00       	callq  411 <test_atomic_and_fetch+0x71>
- 411:	c9                   	leaveq 
- 412:	c3                   	retq   
- 413:	0f 1f 00             	nopl   (%rax)
- 416:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 41d:	00 00 00 
+ 3c4:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 3c8:	bf 01 00 00 00       	mov    $0x1,%edi
+ 3cd:	e8 4e fc ff ff       	callq  20 <atomic_or>
+ 3d2:	90                   	nop
+ 3d3:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 3d7:	74 1f                	je     3f8 <test_atomic_or_fetch+0x58>
+ 3d9:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 3e0:	ba 9f 00 00 00       	mov    $0x9f,%edx
+ 3e5:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 3ec:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 3f3:	e8 00 00 00 00       	callq  3f8 <test_atomic_or_fetch+0x58>
+ 3f8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 3fc:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 403:	00 00 
+ 405:	74 05                	je     40c <test_atomic_or_fetch+0x6c>
+ 407:	e8 00 00 00 00       	callq  40c <test_atomic_or_fetch+0x6c>
+ 40c:	c9                   	leaveq 
+ 40d:	c3                   	retq   
+ 40e:	66 90                	xchg   %ax,%ax
 
-0000000000000420 <test_atomic_xor_fetch>:
- 420:	e8 00 00 00 00       	callq  425 <test_atomic_xor_fetch+0x5>
- 425:	55                   	push   %rbp
- 426:	48 89 e5             	mov    %rsp,%rbp
- 429:	48 83 ec 10          	sub    $0x10,%rsp
- 42d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 434:	00 00 
- 436:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 43a:	31 c0                	xor    %eax,%eax
- 43c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
- 443:	90                   	nop
- 444:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 448:	48 89 c6             	mov    %rax,%rsi
- 44b:	bf 01 00 00 00       	mov    $0x1,%edi
- 450:	e8 db fb ff ff       	callq  30 <atomic_xor>
- 455:	90                   	nop
- 456:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 459:	83 f8 01             	cmp    $0x1,%eax
- 45c:	74 1f                	je     47d <test_atomic_xor_fetch+0x5d>
- 45e:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 465:	ba 90 00 00 00       	mov    $0x90,%edx
- 46a:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 471:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 478:	e8 00 00 00 00       	callq  47d <test_atomic_xor_fetch+0x5d>
- 47d:	90                   	nop
- 47e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 482:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 489:	00 00 
- 48b:	74 05                	je     492 <test_atomic_xor_fetch+0x72>
- 48d:	e8 00 00 00 00       	callq  492 <test_atomic_xor_fetch+0x72>
- 492:	c9                   	leaveq 
- 493:	c3                   	retq   
- 494:	66 90                	xchg   %ax,%ax
- 496:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 49d:	00 00 00 
+0000000000000410 <test_atomic_fetch_add>:
+ 410:	e8 00 00 00 00       	callq  415 <test_atomic_fetch_add+0x5>
+ 415:	55                   	push   %rbp
+ 416:	48 89 e5             	mov    %rsp,%rbp
+ 419:	48 83 ec 10          	sub    $0x10,%rsp
+ 41d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 424:	00 00 
+ 426:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 42a:	31 c0                	xor    %eax,%eax
+ 42c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 433:	90                   	nop
+ 434:	f0 83 45 f4 01       	lock addl $0x1,-0xc(%rbp)
+ 439:	90                   	nop
+ 43a:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 43e:	74 1f                	je     45f <test_atomic_fetch_add+0x4f>
+ 440:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 447:	ba ba 00 00 00       	mov    $0xba,%edx
+ 44c:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 453:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 45a:	e8 00 00 00 00       	callq  45f <test_atomic_fetch_add+0x4f>
+ 45f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 463:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 46a:	00 00 
+ 46c:	74 05                	je     473 <test_atomic_fetch_add+0x63>
+ 46e:	e8 00 00 00 00       	callq  473 <test_atomic_fetch_add+0x63>
+ 473:	c9                   	leaveq 
+ 474:	c3                   	retq   
+ 475:	90                   	nop
+ 476:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+ 47d:	00 00 00 
 
-00000000000004a0 <test_atomic_or_fetch>:
- 4a0:	e8 00 00 00 00       	callq  4a5 <test_atomic_or_fetch+0x5>
- 4a5:	55                   	push   %rbp
- 4a6:	48 89 e5             	mov    %rsp,%rbp
- 4a9:	48 83 ec 10          	sub    $0x10,%rsp
- 4ad:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 4b4:	00 00 
- 4b6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 4ba:	31 c0                	xor    %eax,%eax
- 4bc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
- 4c3:	90                   	nop
- 4c4:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 4c8:	48 89 c6             	mov    %rax,%rsi
- 4cb:	bf 01 00 00 00       	mov    $0x1,%edi
- 4d0:	e8 4b fb ff ff       	callq  20 <atomic_or>
- 4d5:	90                   	nop
- 4d6:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 4d9:	83 f8 01             	cmp    $0x1,%eax
- 4dc:	74 1f                	je     4fd <test_atomic_or_fetch+0x5d>
- 4de:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 4e5:	ba 9f 00 00 00       	mov    $0x9f,%edx
- 4ea:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 4f1:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 4f8:	e8 00 00 00 00       	callq  4fd <test_atomic_or_fetch+0x5d>
- 4fd:	90                   	nop
- 4fe:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 502:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 509:	00 00 
- 50b:	74 05                	je     512 <test_atomic_or_fetch+0x72>
- 50d:	e8 00 00 00 00       	callq  512 <test_atomic_or_fetch+0x72>
- 512:	c9                   	leaveq 
- 513:	c3                   	retq   
- 514:	66 90                	xchg   %ax,%ax
- 516:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 51d:	00 00 00 
+0000000000000480 <test_atomic_fetch_sub>:
+ 480:	e8 00 00 00 00       	callq  485 <test_atomic_fetch_sub+0x5>
+ 485:	55                   	push   %rbp
+ 486:	48 89 e5             	mov    %rsp,%rbp
+ 489:	48 83 ec 10          	sub    $0x10,%rsp
+ 48d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 494:	00 00 
+ 496:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 49a:	31 c0                	xor    %eax,%eax
+ 49c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 4a3:	90                   	nop
+ 4a4:	f0 83 6d f4 01       	lock subl $0x1,-0xc(%rbp)
+ 4a9:	90                   	nop
+ 4aa:	83 7d f4 ff          	cmpl   $0xffffffff,-0xc(%rbp)
+ 4ae:	74 1f                	je     4cf <test_atomic_fetch_sub+0x4f>
+ 4b0:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 4b7:	ba c9 00 00 00       	mov    $0xc9,%edx
+ 4bc:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 4c3:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 4ca:	e8 00 00 00 00       	callq  4cf <test_atomic_fetch_sub+0x4f>
+ 4cf:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 4d3:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 4da:	00 00 
+ 4dc:	74 05                	je     4e3 <test_atomic_fetch_sub+0x63>
+ 4de:	e8 00 00 00 00       	callq  4e3 <test_atomic_fetch_sub+0x63>
+ 4e3:	c9                   	leaveq 
+ 4e4:	c3                   	retq   
+ 4e5:	90                   	nop
+ 4e6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+ 4ed:	00 00 00 
 
-0000000000000520 <test_atomic_nand_fetch>:
- 520:	e8 00 00 00 00       	callq  525 <test_atomic_nand_fetch+0x5>
- 525:	55                   	push   %rbp
- 526:	48 89 e5             	mov    %rsp,%rbp
- 529:	e8 00 00 00 00       	callq  52e <test_atomic_nand_fetch+0xe>
- 52e:	5d                   	pop    %rbp
- 52f:	c3                   	retq   
+00000000000004f0 <test_atomic_fetch_and>:
+ 4f0:	e8 00 00 00 00       	callq  4f5 <test_atomic_fetch_and+0x5>
+ 4f5:	55                   	push   %rbp
+ 4f6:	48 89 e5             	mov    %rsp,%rbp
+ 4f9:	48 83 ec 10          	sub    $0x10,%rsp
+ 4fd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 504:	00 00 
+ 506:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 50a:	31 c0                	xor    %eax,%eax
+ 50c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 513:	90                   	nop
+ 514:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 518:	bf 01 00 00 00       	mov    $0x1,%edi
+ 51d:	e8 ee fa ff ff       	callq  10 <atomic_and>
+ 522:	90                   	nop
+ 523:	83 7d f4 00          	cmpl   $0x0,-0xc(%rbp)
+ 527:	74 1f                	je     548 <test_atomic_fetch_and+0x58>
+ 529:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 530:	ba d8 00 00 00       	mov    $0xd8,%edx
+ 535:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 53c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 543:	e8 00 00 00 00       	callq  548 <test_atomic_fetch_and+0x58>
+ 548:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 54c:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 553:	00 00 
+ 555:	74 05                	je     55c <test_atomic_fetch_and+0x6c>
+ 557:	e8 00 00 00 00       	callq  55c <test_atomic_fetch_and+0x6c>
+ 55c:	c9                   	leaveq 
+ 55d:	c3                   	retq   
+ 55e:	66 90                	xchg   %ax,%ax
 
-0000000000000530 <test_atomic_fetch_add>:
- 530:	e8 00 00 00 00       	callq  535 <test_atomic_fetch_add+0x5>
- 535:	55                   	push   %rbp
- 536:	48 89 e5             	mov    %rsp,%rbp
- 539:	48 83 ec 18          	sub    $0x18,%rsp
- 53d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 544:	00 00 
- 546:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 54a:	31 c0                	xor    %eax,%eax
- 54c:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
- 553:	90                   	nop
- 554:	c7 45 ec 01 00 00 00 	movl   $0x1,-0x14(%rbp)
- 55b:	48 8d 45 e8          	lea    -0x18(%rbp),%rax
- 55f:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
- 563:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
- 567:	8b 55 ec             	mov    -0x14(%rbp),%edx
- 56a:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
- 56e:	f0 01 10             	lock add %edx,(%rax)
- 571:	90                   	nop
- 572:	8b 45 e8             	mov    -0x18(%rbp),%eax
- 575:	83 f8 01             	cmp    $0x1,%eax
- 578:	74 1f                	je     599 <test_atomic_fetch_add+0x69>
- 57a:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 581:	ba ba 00 00 00       	mov    $0xba,%edx
- 586:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 58d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 594:	e8 00 00 00 00       	callq  599 <test_atomic_fetch_add+0x69>
- 599:	90                   	nop
- 59a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 59e:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 5a5:	00 00 
- 5a7:	74 05                	je     5ae <test_atomic_fetch_add+0x7e>
- 5a9:	e8 00 00 00 00       	callq  5ae <test_atomic_fetch_add+0x7e>
- 5ae:	c9                   	leaveq 
- 5af:	c3                   	retq   
+0000000000000560 <test_atomic_fetch_xor>:
+ 560:	e8 00 00 00 00       	callq  565 <test_atomic_fetch_xor+0x5>
+ 565:	55                   	push   %rbp
+ 566:	48 89 e5             	mov    %rsp,%rbp
+ 569:	48 83 ec 10          	sub    $0x10,%rsp
+ 56d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 574:	00 00 
+ 576:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 57a:	31 c0                	xor    %eax,%eax
+ 57c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 583:	90                   	nop
+ 584:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 588:	bf 01 00 00 00       	mov    $0x1,%edi
+ 58d:	e8 9e fa ff ff       	callq  30 <atomic_xor>
+ 592:	90                   	nop
+ 593:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 597:	74 1f                	je     5b8 <test_atomic_fetch_xor+0x58>
+ 599:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 5a0:	ba e7 00 00 00       	mov    $0xe7,%edx
+ 5a5:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 5ac:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 5b3:	e8 00 00 00 00       	callq  5b8 <test_atomic_fetch_xor+0x58>
+ 5b8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 5bc:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 5c3:	00 00 
+ 5c5:	74 05                	je     5cc <test_atomic_fetch_xor+0x6c>
+ 5c7:	e8 00 00 00 00       	callq  5cc <test_atomic_fetch_xor+0x6c>
+ 5cc:	c9                   	leaveq 
+ 5cd:	c3                   	retq   
+ 5ce:	66 90                	xchg   %ax,%ax
 
-00000000000005b0 <test_atomic_fetch_sub>:
- 5b0:	e8 00 00 00 00       	callq  5b5 <test_atomic_fetch_sub+0x5>
- 5b5:	55                   	push   %rbp
- 5b6:	48 89 e5             	mov    %rsp,%rbp
- 5b9:	48 83 ec 18          	sub    $0x18,%rsp
- 5bd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 5c4:	00 00 
- 5c6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 5ca:	31 c0                	xor    %eax,%eax
- 5cc:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
- 5d3:	90                   	nop
- 5d4:	c7 45 ec 01 00 00 00 	movl   $0x1,-0x14(%rbp)
- 5db:	48 8d 45 e8          	lea    -0x18(%rbp),%rax
- 5df:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
- 5e3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
- 5e7:	8b 55 ec             	mov    -0x14(%rbp),%edx
- 5ea:	48 8b 4d f0          	mov    -0x10(%rbp),%rcx
- 5ee:	f0 29 10             	lock sub %edx,(%rax)
- 5f1:	90                   	nop
- 5f2:	8b 45 e8             	mov    -0x18(%rbp),%eax
- 5f5:	83 f8 ff             	cmp    $0xffffffff,%eax
- 5f8:	74 1f                	je     619 <test_atomic_fetch_sub+0x69>
- 5fa:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 601:	ba c9 00 00 00       	mov    $0xc9,%edx
- 606:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 60d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 614:	e8 00 00 00 00       	callq  619 <test_atomic_fetch_sub+0x69>
- 619:	90                   	nop
- 61a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 61e:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 625:	00 00 
- 627:	74 05                	je     62e <test_atomic_fetch_sub+0x7e>
- 629:	e8 00 00 00 00       	callq  62e <test_atomic_fetch_sub+0x7e>
- 62e:	c9                   	leaveq 
- 62f:	c3                   	retq   
+00000000000005d0 <test_atomic_fetch_or>:
+ 5d0:	e8 00 00 00 00       	callq  5d5 <test_atomic_fetch_or+0x5>
+ 5d5:	55                   	push   %rbp
+ 5d6:	48 89 e5             	mov    %rsp,%rbp
+ 5d9:	48 83 ec 10          	sub    $0x10,%rsp
+ 5dd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
+ 5e4:	00 00 
+ 5e6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 5ea:	31 c0                	xor    %eax,%eax
+ 5ec:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
+ 5f3:	90                   	nop
+ 5f4:	48 8d 75 f4          	lea    -0xc(%rbp),%rsi
+ 5f8:	bf 01 00 00 00       	mov    $0x1,%edi
+ 5fd:	e8 1e fa ff ff       	callq  20 <atomic_or>
+ 602:	90                   	nop
+ 603:	83 7d f4 01          	cmpl   $0x1,-0xc(%rbp)
+ 607:	74 1f                	je     628 <test_atomic_fetch_or+0x58>
+ 609:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+ 610:	ba f6 00 00 00       	mov    $0xf6,%edx
+ 615:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 61c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 623:	e8 00 00 00 00       	callq  628 <test_atomic_fetch_or+0x58>
+ 628:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 62c:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
+ 633:	00 00 
+ 635:	74 05                	je     63c <test_atomic_fetch_or+0x6c>
+ 637:	e8 00 00 00 00       	callq  63c <test_atomic_fetch_or+0x6c>
+ 63c:	c9                   	leaveq 
+ 63d:	c3                   	retq   
+ 63e:	66 90                	xchg   %ax,%ax
 
-0000000000000630 <test_atomic_fetch_and>:
- 630:	e8 00 00 00 00       	callq  635 <test_atomic_fetch_and+0x5>
- 635:	55                   	push   %rbp
- 636:	48 89 e5             	mov    %rsp,%rbp
- 639:	48 83 ec 10          	sub    $0x10,%rsp
- 63d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 644:	00 00 
- 646:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 64a:	31 c0                	xor    %eax,%eax
- 64c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
- 653:	90                   	nop
- 654:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 658:	48 89 c6             	mov    %rax,%rsi
- 65b:	bf 01 00 00 00       	mov    $0x1,%edi
- 660:	e8 ab f9 ff ff       	callq  10 <atomic_and>
- 665:	90                   	nop
- 666:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 669:	85 c0                	test   %eax,%eax
- 66b:	74 1f                	je     68c <test_atomic_fetch_and+0x5c>
- 66d:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 674:	ba d8 00 00 00       	mov    $0xd8,%edx
- 679:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 680:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 687:	e8 00 00 00 00       	callq  68c <test_atomic_fetch_and+0x5c>
- 68c:	90                   	nop
- 68d:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 691:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 698:	00 00 
- 69a:	74 05                	je     6a1 <test_atomic_fetch_and+0x71>
- 69c:	e8 00 00 00 00       	callq  6a1 <test_atomic_fetch_and+0x71>
- 6a1:	c9                   	leaveq 
- 6a2:	c3                   	retq   
- 6a3:	0f 1f 00             	nopl   (%rax)
- 6a6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 6ad:	00 00 00 
+0000000000000640 <test_atomic_signal_fence>:
+ 640:	e8 00 00 00 00       	callq  645 <test_atomic_signal_fence+0x5>
+ 645:	55                   	push   %rbp
+ 646:	48 89 e5             	mov    %rsp,%rbp
+ 649:	5d                   	pop    %rbp
+ 64a:	c3                   	retq   
+ 64b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
 
-00000000000006b0 <test_atomic_fetch_xor>:
- 6b0:	e8 00 00 00 00       	callq  6b5 <test_atomic_fetch_xor+0x5>
+0000000000000650 <test_atomic_thread_fence>:
+ 650:	e8 00 00 00 00       	callq  655 <test_atomic_thread_fence+0x5>
+ 655:	55                   	push   %rbp
+ 656:	48 89 e5             	mov    %rsp,%rbp
+ 659:	5d                   	pop    %rbp
+ 65a:	c3                   	retq   
+ 65b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000660 <test_atomic_clear>:
+ 660:	e8 00 00 00 00       	callq  665 <test_atomic_clear+0x5>
+ 665:	55                   	push   %rbp
+ 666:	48 89 e5             	mov    %rsp,%rbp
+ 669:	5d                   	pop    %rbp
+ 66a:	c3                   	retq   
+ 66b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000670 <test_atomic_test_and_set>:
+ 670:	e8 00 00 00 00       	callq  675 <test_atomic_test_and_set+0x5>
+ 675:	55                   	push   %rbp
+ 676:	48 89 e5             	mov    %rsp,%rbp
+ 679:	5d                   	pop    %rbp
+ 67a:	c3                   	retq   
+ 67b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000680 <test_atomic_fetch_nand>:
+ 680:	e8 00 00 00 00       	callq  685 <test_atomic_fetch_nand+0x5>
+ 685:	55                   	push   %rbp
+ 686:	48 89 e5             	mov    %rsp,%rbp
+ 689:	5d                   	pop    %rbp
+ 68a:	c3                   	retq   
+ 68b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000000690 <test_atomic_nand_fetch>:
+ 690:	e8 00 00 00 00       	callq  695 <test_atomic_nand_fetch+0x5>
+ 695:	55                   	push   %rbp
+ 696:	48 89 e5             	mov    %rsp,%rbp
+ 699:	5d                   	pop    %rbp
+ 69a:	c3                   	retq   
+ 69b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000006a0 <test_atomic_is_lock_free>:
+ 6a0:	e8 00 00 00 00       	callq  6a5 <test_atomic_is_lock_free+0x5>
+ 6a5:	55                   	push   %rbp
+ 6a6:	48 89 e5             	mov    %rsp,%rbp
+ 6a9:	5d                   	pop    %rbp
+ 6aa:	c3                   	retq   
+ 6ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+00000000000006b0 <test_atomic_always_lock_free>:
+ 6b0:	e8 00 00 00 00       	callq  6b5 <test_atomic_always_lock_free+0x5>
  6b5:	55                   	push   %rbp
  6b6:	48 89 e5             	mov    %rsp,%rbp
- 6b9:	48 83 ec 10          	sub    $0x10,%rsp
- 6bd:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 6c4:	00 00 
- 6c6:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 6ca:	31 c0                	xor    %eax,%eax
- 6cc:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
- 6d3:	90                   	nop
- 6d4:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 6d8:	48 89 c6             	mov    %rax,%rsi
- 6db:	bf 01 00 00 00       	mov    $0x1,%edi
- 6e0:	e8 4b f9 ff ff       	callq  30 <atomic_xor>
- 6e5:	90                   	nop
- 6e6:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 6e9:	83 f8 01             	cmp    $0x1,%eax
- 6ec:	74 1f                	je     70d <test_atomic_fetch_xor+0x5d>
- 6ee:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 6f5:	ba e7 00 00 00       	mov    $0xe7,%edx
- 6fa:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 701:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 708:	e8 00 00 00 00       	callq  70d <test_atomic_fetch_xor+0x5d>
- 70d:	90                   	nop
- 70e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 712:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 719:	00 00 
- 71b:	74 05                	je     722 <test_atomic_fetch_xor+0x72>
- 71d:	e8 00 00 00 00       	callq  722 <test_atomic_fetch_xor+0x72>
- 722:	c9                   	leaveq 
- 723:	c3                   	retq   
- 724:	66 90                	xchg   %ax,%ax
- 726:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 72d:	00 00 00 
-
-0000000000000730 <test_atomic_fetch_or>:
- 730:	e8 00 00 00 00       	callq  735 <test_atomic_fetch_or+0x5>
- 735:	55                   	push   %rbp
- 736:	48 89 e5             	mov    %rsp,%rbp
- 739:	48 83 ec 10          	sub    $0x10,%rsp
- 73d:	65 48 8b 04 25 28 00 	mov    %gs:0x28,%rax
- 744:	00 00 
- 746:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
- 74a:	31 c0                	xor    %eax,%eax
- 74c:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%rbp)
- 753:	90                   	nop
- 754:	48 8d 45 f4          	lea    -0xc(%rbp),%rax
- 758:	48 89 c6             	mov    %rax,%rsi
- 75b:	bf 01 00 00 00       	mov    $0x1,%edi
- 760:	e8 bb f8 ff ff       	callq  20 <atomic_or>
- 765:	90                   	nop
- 766:	8b 45 f4             	mov    -0xc(%rbp),%eax
- 769:	83 f8 01             	cmp    $0x1,%eax
- 76c:	74 1f                	je     78d <test_atomic_fetch_or+0x5d>
- 76e:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
- 775:	ba f6 00 00 00       	mov    $0xf6,%edx
- 77a:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
- 781:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 788:	e8 00 00 00 00       	callq  78d <test_atomic_fetch_or+0x5d>
- 78d:	90                   	nop
- 78e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
- 792:	65 48 33 04 25 28 00 	xor    %gs:0x28,%rax
- 799:	00 00 
- 79b:	74 05                	je     7a2 <test_atomic_fetch_or+0x72>
- 79d:	e8 00 00 00 00       	callq  7a2 <test_atomic_fetch_or+0x72>
- 7a2:	c9                   	leaveq 
- 7a3:	c3                   	retq   
- 7a4:	66 90                	xchg   %ax,%ax
- 7a6:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
- 7ad:	00 00 00 
-
-00000000000007b0 <test_atomic_fetch_nand>:
- 7b0:	e8 00 00 00 00       	callq  7b5 <test_atomic_fetch_nand+0x5>
- 7b5:	55                   	push   %rbp
- 7b6:	48 89 e5             	mov    %rsp,%rbp
- 7b9:	e8 00 00 00 00       	callq  7be <test_atomic_fetch_nand+0xe>
- 7be:	5d                   	pop    %rbp
- 7bf:	c3                   	retq   
-
-00000000000007c0 <test_atomic_test_and_set>:
- 7c0:	e8 00 00 00 00       	callq  7c5 <test_atomic_test_and_set+0x5>
- 7c5:	55                   	push   %rbp
- 7c6:	48 89 e5             	mov    %rsp,%rbp
- 7c9:	e8 00 00 00 00       	callq  7ce <test_atomic_test_and_set+0xe>
- 7ce:	5d                   	pop    %rbp
- 7cf:	c3                   	retq   
-
-00000000000007d0 <test_atomic_clear>:
- 7d0:	e8 00 00 00 00       	callq  7d5 <test_atomic_clear+0x5>
- 7d5:	55                   	push   %rbp
- 7d6:	48 89 e5             	mov    %rsp,%rbp
- 7d9:	e8 00 00 00 00       	callq  7de <test_atomic_clear+0xe>
- 7de:	5d                   	pop    %rbp
- 7df:	c3                   	retq   
-
-00000000000007e0 <test_atomic_thread_fence>:
- 7e0:	e8 00 00 00 00       	callq  7e5 <test_atomic_thread_fence+0x5>
- 7e5:	55                   	push   %rbp
- 7e6:	48 89 e5             	mov    %rsp,%rbp
- 7e9:	e8 00 00 00 00       	callq  7ee <test_atomic_thread_fence+0xe>
- 7ee:	5d                   	pop    %rbp
- 7ef:	c3                   	retq   
-
-00000000000007f0 <test_atomic_signal_fence>:
- 7f0:	e8 00 00 00 00       	callq  7f5 <test_atomic_signal_fence+0x5>
- 7f5:	55                   	push   %rbp
- 7f6:	48 89 e5             	mov    %rsp,%rbp
- 7f9:	90                   	nop
- 7fa:	5d                   	pop    %rbp
- 7fb:	c3                   	retq   
- 7fc:	0f 1f 40 00          	nopl   0x0(%rax)
-
-0000000000000800 <test_atomic_always_lock_free>:
- 800:	e8 00 00 00 00       	callq  805 <test_atomic_always_lock_free+0x5>
- 805:	55                   	push   %rbp
- 806:	48 89 e5             	mov    %rsp,%rbp
- 809:	5d                   	pop    %rbp
- 80a:	c3                   	retq   
- 80b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
-
-0000000000000810 <test_atomic_is_lock_free>:
- 810:	e8 00 00 00 00       	callq  815 <test_atomic_is_lock_free+0x5>
- 815:	55                   	push   %rbp
- 816:	48 89 e5             	mov    %rsp,%rbp
- 819:	5d                   	pop    %rbp
- 81a:	c3                   	retq   
+ 6b9:	5d                   	pop    %rbp
+ 6ba:	c3                   	retq   
 
 Disassembly of section .init.text:
 
@@ -648,46 +541,40 @@ Disassembly of section .init.text:
   54:	e8 00 00 00 00       	callq  59 <init_module+0x59>
   59:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
   60:	e8 00 00 00 00       	callq  65 <init_module+0x65>
-  65:	e8 00 00 00 00       	callq  6a <init_module+0x6a>
-  6a:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  65:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  6c:	e8 00 00 00 00       	callq  71 <init_module+0x71>
   71:	e8 00 00 00 00       	callq  76 <init_module+0x76>
-  76:	e8 00 00 00 00       	callq  7b <init_module+0x7b>
-  7b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  76:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  7d:	e8 00 00 00 00       	callq  82 <init_module+0x82>
   82:	e8 00 00 00 00       	callq  87 <init_module+0x87>
-  87:	e8 00 00 00 00       	callq  8c <init_module+0x8c>
-  8c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  87:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  8e:	e8 00 00 00 00       	callq  93 <init_module+0x93>
   93:	e8 00 00 00 00       	callq  98 <init_module+0x98>
-  98:	e8 00 00 00 00       	callq  9d <init_module+0x9d>
-  9d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  98:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  9f:	e8 00 00 00 00       	callq  a4 <init_module+0xa4>
   a4:	e8 00 00 00 00       	callq  a9 <init_module+0xa9>
-  a9:	e8 00 00 00 00       	callq  ae <init_module+0xae>
-  ae:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  a9:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  b0:	e8 00 00 00 00       	callq  b5 <init_module+0xb5>
   b5:	e8 00 00 00 00       	callq  ba <init_module+0xba>
-  ba:	e8 00 00 00 00       	callq  bf <init_module+0xbf>
-  bf:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
-  c6:	e8 00 00 00 00       	callq  cb <init_module+0xcb>
-  cb:	e8 00 00 00 00       	callq  d0 <init_module+0xd0>
-  d0:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
-  d7:	e8 00 00 00 00       	callq  dc <init_module+0xdc>
-  dc:	e8 00 00 00 00       	callq  e1 <init_module+0xe1>
-  e1:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
-  e8:	e8 00 00 00 00       	callq  ed <init_module+0xed>
-  ed:	e8 00 00 00 00       	callq  f2 <init_module+0xf2>
-  f2:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
-  f9:	e8 00 00 00 00       	callq  fe <init_module+0xfe>
-  fe:	e8 00 00 00 00       	callq  103 <init_module+0x103>
- 103:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 10a:	e8 00 00 00 00       	callq  10f <init_module+0x10f>
- 10f:	e8 00 00 00 00       	callq  114 <init_module+0x114>
- 114:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 11b:	e8 00 00 00 00       	callq  120 <init_module+0x120>
- 120:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 127:	e8 00 00 00 00       	callq  12c <init_module+0x12c>
- 12c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
- 133:	e8 00 00 00 00       	callq  138 <init_module+0x138>
- 138:	31 c0                	xor    %eax,%eax
- 13a:	5d                   	pop    %rbp
- 13b:	c3                   	retq   
+  ba:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  c1:	e8 00 00 00 00       	callq  c6 <init_module+0xc6>
+  c6:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  cd:	e8 00 00 00 00       	callq  d2 <init_module+0xd2>
+  d2:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  d9:	e8 00 00 00 00       	callq  de <init_module+0xde>
+  de:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  e5:	e8 00 00 00 00       	callq  ea <init_module+0xea>
+  ea:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  f1:	e8 00 00 00 00       	callq  f6 <init_module+0xf6>
+  f6:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  fd:	e8 00 00 00 00       	callq  102 <init_module+0x102>
+ 102:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 109:	e8 00 00 00 00       	callq  10e <init_module+0x10e>
+ 10e:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 115:	e8 00 00 00 00       	callq  11a <init_module+0x11a>
+ 11a:	31 c0                	xor    %eax,%eax
+ 11c:	5d                   	pop    %rbp
+ 11d:	c3                   	retq   
 
 Disassembly of section .exit.text:
 

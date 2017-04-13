@@ -14,7 +14,7 @@ MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 /*----------------------------------------------------------------*/
 /*----operation_n ------------------------------------------------*/
 /*----------------------------------------------------------------*/
-void __attribute__((optimize("O0"))) test_atomic_load_n(void) {
+void __attribute__((optimize("O1"))) test_atomic_load_n(void) {
 #ifdef BUILTIN
     volatile int load_val = 99, loaded;
     NOOP;
@@ -28,7 +28,7 @@ void __attribute__((optimize("O0"))) test_atomic_load_n(void) {
 #endif
 }
 
-void __attribute__((optimize("O0"))) test_atomic_store_n(void) {
+void __attribute__((optimize("O1"))) test_atomic_store_n(void) {
 #ifdef BUILTIN
     volatile int store_val = 99;
     volatile int store_loc;
@@ -44,7 +44,7 @@ void __attribute__((optimize("O0"))) test_atomic_store_n(void) {
 #endif
 }
 
-void __attribute__((optimize("O0"))) test_atomic_exchange_n(void) {
+void __attribute__((optimize("O1"))) test_atomic_exchange_n(void) {
 #ifdef BUILTIN
     volatile int xchg_loc = 49;
     volatile int xchg_val = 99;
@@ -62,7 +62,7 @@ void __attribute__((optimize("O0"))) test_atomic_exchange_n(void) {
     assert(xchg_loc.counter == xchg_val);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_compare_exchange_n(void) {
+void __attribute__((optimize("O1"))) test_atomic_compare_exchange_n(void) {
 #ifdef BUILTIN
     volatile int xchg_loc = 49;
     int expected = 49;
@@ -84,7 +84,7 @@ void __attribute__((optimize("O0"))) test_atomic_compare_exchange_n(void) {
 /*----------------------------------------------------------------*/
 /*----operation + fetch ------------------------------------------*/
 /*----------------------------------------------------------------*/
-void __attribute__((optimize("O0"))) test_atomic_add_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_add_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -99,7 +99,7 @@ void __attribute__((optimize("O0"))) test_atomic_add_fetch(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_sub_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_sub_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -114,7 +114,7 @@ void __attribute__((optimize("O0"))) test_atomic_sub_fetch(void) {
     assert(counter.counter == -1);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_and_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_and_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -129,7 +129,7 @@ void __attribute__((optimize("O0"))) test_atomic_and_fetch(void) {
     assert(counter.counter == 0);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_xor_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_xor_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -144,7 +144,7 @@ void __attribute__((optimize("O0"))) test_atomic_xor_fetch(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_or_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_or_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -159,7 +159,7 @@ void __attribute__((optimize("O0"))) test_atomic_or_fetch(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_nand_fetch(void) {
+void __attribute__((optimize("O1"))) test_atomic_nand_fetch(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -171,7 +171,7 @@ void __attribute__((optimize("O0"))) test_atomic_nand_fetch(void) {
 /*----------------------------------------------------------------*/
 /*----fetch + operation ------------------------------------------*/
 /*----------------------------------------------------------------*/
-void __attribute__((optimize("O0"))) test_atomic_fetch_add(void) {
+void __attribute__((optimize("O1"))) test_atomic_fetch_add(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -186,7 +186,7 @@ void __attribute__((optimize("O0"))) test_atomic_fetch_add(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0")))  test_atomic_fetch_sub(void) {
+void __attribute__((optimize("O1")))  test_atomic_fetch_sub(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -201,7 +201,7 @@ void __attribute__((optimize("O0")))  test_atomic_fetch_sub(void) {
     assert(counter.counter == -1);
 #endif
 }
-void __attribute__((optimize("O0")))  test_atomic_fetch_and(void) {
+void __attribute__((optimize("O1")))  test_atomic_fetch_and(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -216,7 +216,7 @@ void __attribute__((optimize("O0")))  test_atomic_fetch_and(void) {
     assert(counter.counter == 0);
 #endif
 }
-void __attribute__((optimize("O0")))  test_atomic_fetch_xor(void) {
+void __attribute__((optimize("O1")))  test_atomic_fetch_xor(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -231,7 +231,7 @@ void __attribute__((optimize("O0")))  test_atomic_fetch_xor(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0")))  test_atomic_fetch_or(void) {
+void __attribute__((optimize("O1")))  test_atomic_fetch_or(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -246,7 +246,7 @@ void __attribute__((optimize("O0")))  test_atomic_fetch_or(void) {
     assert(counter.counter == 1);
 #endif
 }
-void __attribute__((optimize("O0")))  test_atomic_fetch_nand(void) {
+void __attribute__((optimize("O1")))  test_atomic_fetch_nand(void) {
 #ifdef BUILTIN
     volatile int counter = 0;
     NOOP;
@@ -258,7 +258,7 @@ void __attribute__((optimize("O0")))  test_atomic_fetch_nand(void) {
 /*----------------------------------------------------------------*/
 /*----aux operations ---------------------------------------------*/
 /*----------------------------------------------------------------*/
-void __attribute__((optimize("O0"))) test_atomic_test_and_set(void) {
+void __attribute__((optimize("O1"))) test_atomic_test_and_set(void) {
 #ifdef BUILTIN
     // Only works for booleans
     bool val1 = false, *ptr1 = &val1, rval1;
@@ -273,7 +273,7 @@ void __attribute__((optimize("O0"))) test_atomic_test_and_set(void) {
     assert(rval2 == true && val2 == true);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_clear(void) {
+void __attribute__((optimize("O1"))) test_atomic_clear(void) {
 #ifdef BUILTIN
     bool val1 = true, *ptr1 = &val1;
     bool val2 = false, *ptr2 = &val2;
@@ -287,7 +287,7 @@ void __attribute__((optimize("O0"))) test_atomic_clear(void) {
     assert(val2 == false);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
+void __attribute__((optimize("O1"))) test_atomic_thread_fence(void) {
 #ifdef BUILTIN
     volatile int store;
     volatile int load;
@@ -299,7 +299,7 @@ void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
     assert(load == store);
 #endif
 }
-void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
+void __attribute__((optimize("O1"))) test_atomic_signal_fence(void) {
 #ifdef BUILTIN
     volatile int store;
     volatile int load;
