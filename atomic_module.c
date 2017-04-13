@@ -7,7 +7,7 @@ MODULE_AUTHOR("Lance Chao");
 MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 
 #define MMODEL __ATOMIC_SEQ_CST
-#define NOOP asm ("nop")
+#define NOOP asm("nop")
 
 #define assert(cond) \
     if (!(cond)) printk("%s:%d: Assertion (%s) failed.\n", __FILE__, __LINE__, #cond)
@@ -216,12 +216,16 @@ void test_atomic_test_and_set(void) {
     assert(rval2 == true && val2 == true);
 #endif
 }
-void test_atomic_clear(void) {
+void __attribute__((optimize("O0"))) test_atomic_clear(void) {
 #ifdef BUILTIN
     bool val1 = true, *ptr1 = &val1;
-    bool val2 = true, *ptr2 = &val2;
+    bool val2 = false, *ptr2 = &val2;
+    NOOP;
     __atomic_clear(ptr1, MMODEL);
+    NOOP;
+    NOOP;
     __atomic_clear(ptr2, MMODEL);
+    NOOP;
     assert(val1 == false);
     assert(val2 == false);
 #endif
@@ -231,7 +235,9 @@ void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
     int store;
     int load;
     store = 42;
+    NOOP;
     __atomic_thread_fence(MMODEL);
+    NOOP;
     load = store;
     assert(load == store);
 #endif
@@ -241,35 +247,41 @@ void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
     int store;
     int load;
     store = 42;
-    __atomic_thread_fence(MMODEL);
+    NOOP;
+    __atomic_signal_fence(MMODEL);
+    NOOP;
     load = store;
     assert(load == store);
 #endif
 }
 void test_atomic_always_lock_free(void) {
 #ifdef BUILTIN
-    size_t size1 = sizeof(int);
     struct s {
         int x, y, z;
     };
-    size_t size2 = sizeof(struct s);
     bool rval1, rval2;
-    rval1 = __atomic_always_lock_free(size1, 0);
-    rval2 = __atomic_always_lock_free(size2, 0);
+    NOOP;
+    rval1 = __atomic_always_lock_free(sizeof(int), 0);
+    NOOP;
+    NOOP;
+    rval2 = __atomic_always_lock_free(sizeof(struct s), 0);
+    NOOP;
     assert(rval1 == true);
     assert(rval2 == false);
 #endif
 }
 void test_atomic_is_lock_free(void) {
 #ifdef BUILTIN
-    size_t size1 = sizeof(int);
     struct s {
         int x, y, z;
     };
-    size_t size2 = sizeof(struct s);
     bool rval1, rval2;
-    rval1 = __atomic_always_lock_free(size1, 0);
-    rval2 = __atomic_always_lock_free(size2, 0);
+    NOOP;
+    rval1 = __atomic_always_lock_free(sizeof(int), 0);
+    NOOP;
+    NOOP;
+    rval2 = __atomic_always_lock_free(sizeof(struct s), 0);
+    NOOP;
     assert(rval1 == true);
     assert(rval2 == false);
 #endif
