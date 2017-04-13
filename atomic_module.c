@@ -16,29 +16,29 @@ MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 /*----------------------------------------------------------------*/
 void __attribute__((optimize("O0"))) test_atomic_load_n(void) {
 #ifdef BUILTIN
-    int load_val = 99, loaded;
+    volatile int load_val = 99, loaded;
     NOOP;
     loaded = __atomic_load_n(&load_val, MMODEL);
     NOOP;
     assert(loaded == load_val);
 #else
     atomic_t load_val = ATOMIC_INIT(99);
-    int loaded = atomic_read(&load_val);
+    volatile int loaded = atomic_read(&load_val);
     assert(load_val.counter == loaded);
 #endif
 }
 
 void __attribute__((optimize("O0"))) test_atomic_store_n(void) {
 #ifdef BUILTIN
-    int store_val = 99;
-    int store_loc;
+    volatile int store_val = 99;
+    volatile int store_loc;
     NOOP;
     __atomic_store_n(&store_loc, store_val, MMODEL);
     NOOP;
     assert(store_loc == store_val);
 #else
     atomic_t store_loc;
-    int store_val = 99;
+    volatile int store_val = 99;
     atomic_set(&store_loc, store_val);
     assert(store_loc.counter == store_val);
 #endif
@@ -46,9 +46,9 @@ void __attribute__((optimize("O0"))) test_atomic_store_n(void) {
 
 void __attribute__((optimize("O0"))) test_atomic_exchange_n(void) {
 #ifdef BUILTIN
-    int xchg_loc = 49;
-    int xchg_val = 99;
-    int old;
+    volatile int xchg_loc = 49;
+    volatile int xchg_val = 99;
+    volatile int old;
     NOOP;
     old = __atomic_exchange_n(&xchg_loc, xchg_val, MMODEL);
     NOOP;
@@ -56,15 +56,15 @@ void __attribute__((optimize("O0"))) test_atomic_exchange_n(void) {
     assert(xchg_loc == xchg_val);
 #else
     atomic_t xchg_loc = ATOMIC_INIT(49);
-    int xchg_val = 99;
-    int old = atomic_xchg(&xchg_loc, xchg_val);
+    volatile int xchg_val = 99;
+    volatile int old = atomic_xchg(&xchg_loc, xchg_val);
     assert(old == 49);
     assert(xchg_loc.counter == xchg_val);
 #endif
 }
 void __attribute__((optimize("O0"))) test_atomic_compare_exchange_n(void) {
 #ifdef BUILTIN
-    int xchg_loc = 49;
+    volatile int xchg_loc = 49;
     int expected = 49;
     int desired = 99;
     bool success;
@@ -75,8 +75,8 @@ void __attribute__((optimize("O0"))) test_atomic_compare_exchange_n(void) {
     assert(xchg_loc == desired);
 #else
     atomic_t xchg_loc = ATOMIC_INIT(49);
-    int old = 49;
-    int new = 99;
+    volatile int old = 49;
+    volatile int new = 99;
     atomic_cmpxchg(&xchg_loc, old, new);
     assert(xchg_loc.counter == new);
 #endif
@@ -86,7 +86,7 @@ void __attribute__((optimize("O0"))) test_atomic_compare_exchange_n(void) {
 /*----------------------------------------------------------------*/
 void __attribute__((optimize("O0"))) test_atomic_add_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_add_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -99,7 +99,7 @@ void __attribute__((optimize("O0"))) test_atomic_add_fetch(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_sub_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_sub_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -112,7 +112,7 @@ void __attribute__((optimize("O0"))) test_atomic_sub_fetch(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_and_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_and_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -125,7 +125,7 @@ void __attribute__((optimize("O0"))) test_atomic_and_fetch(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_xor_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_xor_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -138,7 +138,7 @@ void __attribute__((optimize("O0"))) test_atomic_xor_fetch(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_or_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_or_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -151,7 +151,7 @@ void __attribute__((optimize("O0"))) test_atomic_or_fetch(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_nand_fetch(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_nand_fetch(&counter, 1, MMODEL);
     NOOP;
@@ -163,7 +163,7 @@ void __attribute__((optimize("O0"))) test_atomic_nand_fetch(void) {
 /*----------------------------------------------------------------*/
 void test_atomic_fetch_add(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_add(&counter, 1, MMODEL);
     NOOP;
@@ -176,7 +176,7 @@ void test_atomic_fetch_add(void) {
 }
 void test_atomic_fetch_sub(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_sub(&counter, 1, MMODEL);
     NOOP;
@@ -189,7 +189,7 @@ void test_atomic_fetch_sub(void) {
 }
 void test_atomic_fetch_and(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_and(&counter, 1, MMODEL);
     NOOP;
@@ -202,7 +202,7 @@ void test_atomic_fetch_and(void) {
 }
 void test_atomic_fetch_xor(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_xor(&counter, 1, MMODEL);
     NOOP;
@@ -215,7 +215,7 @@ void test_atomic_fetch_xor(void) {
 }
 void test_atomic_fetch_or(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_or(&counter, 1, MMODEL);
     NOOP;
@@ -228,7 +228,7 @@ void test_atomic_fetch_or(void) {
 }
 void test_atomic_fetch_nand(void) {
 #ifdef BUILTIN
-    int counter = 0;
+    volatile int counter = 0;
     NOOP;
     __atomic_fetch_nand(&counter, 1, MMODEL);
     NOOP;
@@ -269,8 +269,8 @@ void __attribute__((optimize("O0"))) test_atomic_clear(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
 #ifdef BUILTIN
-    int store;
-    int load;
+    volatile int store;
+    volatile int load;
     store = 42;
     NOOP;
     __atomic_thread_fence(MMODEL);
@@ -281,8 +281,8 @@ void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
 }
 void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
 #ifdef BUILTIN
-    int store;
-    int load;
+    volatile int store;
+    volatile int load;
     store = 42;
     NOOP;
     __atomic_signal_fence(MMODEL);
@@ -294,7 +294,7 @@ void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
 void test_atomic_always_lock_free(void) {
 #ifdef BUILTIN
     struct s {
-        int x, y, z;
+        volatile int x, y, z;
     };
     bool rval1, rval2;
     NOOP;
@@ -310,7 +310,7 @@ void test_atomic_always_lock_free(void) {
 void test_atomic_is_lock_free(void) {
 #ifdef BUILTIN
     struct s {
-        int x, y, z;
+        volatile int x, y, z;
     };
     bool rval1, rval2;
     NOOP;
