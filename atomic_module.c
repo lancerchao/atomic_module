@@ -205,7 +205,7 @@ void test_atomic_fetch_nand(void) {
 /*----------------------------------------------------------------*/
 /*----aux operations ---------------------------------------------*/
 /*----------------------------------------------------------------*/
-void test_atomic_test_and_set(void) {
+void __attribute__((optimize("O0")))  test_atomic_test_and_set(void) {
 #ifdef BUILTIN
     // Only works for booleans
     bool val1 = false, *ptr1 = &val1, rval1;
