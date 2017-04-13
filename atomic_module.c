@@ -33,7 +33,7 @@ void test_atomic_store_n(void) {
     atomic_t store_loc;
     int store_val = 99;
     atomic_set(&store_loc, store_val);
-    assert(store_loc.counter == store_val); 
+    assert(store_loc.counter == store_val);
 #endif
 }
 
@@ -202,85 +202,73 @@ void test_atomic_fetch_nand(void) {
 /*----aux operations ---------------------------------------------*/
 /*----------------------------------------------------------------*/
 void test_atomic_test_and_set(void) {
+#ifdef BUILTIN
     // Only works for booleans
     bool val1 = false, *ptr1 = &val1, rval1;
     bool val2 = true, *ptr2 = &val2, rval2;
-#ifdef BUILTIN
     rval1 = __atomic_test_and_set(ptr1, __ATOMIC_SEQ_CST);
     rval2 = __atomic_test_and_set(ptr2, __ATOMIC_SEQ_CST);
-#else
-
-#endif
     assert(rval1 == false && val1 == true);
     assert(rval2 == true && val2 == true);
+#endif
 }
 void test_atomic_clear(void) {
+#ifdef BUILTIN
     bool val1 = true, *ptr1 = &val1;
     bool val2 = true, *ptr2 = &val2;
-#ifdef BUILTIN
     __atomic_clear(ptr1, __ATOMIC_SEQ_CST);
     __atomic_clear(ptr2, __ATOMIC_SEQ_CST);
-#else
-
-#endif
     assert(val1 == false);
     assert(val2 == false);
+#endif
 }
 void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
+#ifdef BUILTIN
     int store;
     int load;
-
     store = 42;
-#ifdef BUILTIN
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
-#else
-#endif
     load = store;
     assert(load == store);
+#endif
 }
 void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
+#ifdef BUILTIN
     int store;
     int load;
-
     store = 42;
-#ifdef BUILTIN
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
-#else
-#endif
     load = store;
     assert(load == store);
+#endif
 }
 void test_atomic_always_lock_free(void) {
+#ifdef BUILTIN
     size_t size1 = sizeof(int);
-    struct s{
-        int x, y,z;
+    struct s {
+        int x, y, z;
     };
     size_t size2 = sizeof(struct s);
     bool rval1, rval2;
-
-#ifdef BUILTIN
     rval1 = __atomic_always_lock_free(size1, 0);
     rval2 = __atomic_always_lock_free(size2, 0);
-#else
-#endif
     assert(rval1 == true);
     assert(rval2 == false);
+#endif
 }
 void test_atomic_is_lock_free(void) {
+#ifdef BUILTIN
     size_t size1 = sizeof(int);
-    struct s{
-        int x, y,z;
+    struct s {
+        int x, y, z;
     };
     size_t size2 = sizeof(struct s);
     bool rval1, rval2;
-
-#ifdef BUILTIN
     rval1 = __atomic_always_lock_free(size1, 0);
     rval2 = __atomic_always_lock_free(size2, 0);
-#else
-#endif
     assert(rval1 == true);
     assert(rval2 == false);
+#endif
 }
 
 static int __init atomic_module_init(void) {
