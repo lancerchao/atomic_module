@@ -7,6 +7,7 @@ MODULE_AUTHOR("Lance Chao");
 MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 
 #define MMODEL __ATOMIC_SEQ_CST
+#define NOOP asm ("nop")
 
 #define assert(cond) \
     if (!(cond)) printk("%s:%d: Assertion (%s) failed.\n", __FILE__, __LINE__, #cond)
@@ -17,6 +18,7 @@ void test_atomic_load_n(void) {
 #ifdef BUILTIN
     int load_val = 99;
     int loaded = __atomic_load_n(&load_val, MMODEL);
+    NOOP;
     assert(loaded == load_val);
 #else
     atomic_t load_val = ATOMIC_INIT(99);
