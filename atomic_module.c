@@ -210,8 +210,12 @@ void test_atomic_test_and_set(void) {
     // Only works for booleans
     bool val1 = false, *ptr1 = &val1, rval1;
     bool val2 = true, *ptr2 = &val2, rval2;
+    NOOP;
     rval1 = __atomic_test_and_set(ptr1, MMODEL);
+    NOOP;
+    NOOP;
     rval2 = __atomic_test_and_set(ptr2, MMODEL);
+    NOOP;
     assert(rval1 == false && val1 == true);
     assert(rval2 == true && val2 == true);
 #endif
