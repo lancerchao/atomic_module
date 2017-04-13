@@ -6,6 +6,8 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Lance Chao");
 MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 
+#define MMODEL __ATOMIC_SEQ_CST
+
 #define assert(cond) \
     if (!(cond)) printk("%s:%d: Assertion (%s) failed.\n", __FILE__, __LINE__, #cond)
 /*----------------------------------------------------------------*/
@@ -14,7 +16,7 @@ MODULE_DESCRIPTION("Test Kernel and GCC atomics");
 void test_atomic_load_n(void) {
 #ifdef BUILTIN
     int load_val = 99;
-    int loaded = __atomic_load_n(&load_val, __ATOMIC_SEQ_CST);
+    int loaded = __atomic_load_n(&load_val, MMODEL);
     assert(loaded == load_val);
 #else
     atomic_t load_val = ATOMIC_INIT(99);
@@ -27,7 +29,7 @@ void test_atomic_store_n(void) {
 #ifdef BUILTIN
     int store_val = 99;
     int store_loc;
-    __atomic_store_n(&store_loc, store_val, __ATOMIC_SEQ_CST);
+    __atomic_store_n(&store_loc, store_val, MMODEL);
     assert(store_loc == store_val);
 #else
     atomic_t store_loc;
@@ -41,7 +43,7 @@ void test_atomic_exchange_n(void) {
 #ifdef BUILTIN
     int xchg_loc = 49;
     int xchg_val = 99;
-    int old = __atomic_exchange_n(&xchg_loc, xchg_val, __ATOMIC_SEQ_CST);
+    int old = __atomic_exchange_n(&xchg_loc, xchg_val, MMODEL);
     assert(old == 49);
     assert(xchg_loc == xchg_val);
 #else
@@ -57,7 +59,7 @@ void test_atomic_compare_exchange_n(void) {
     int xchg_loc = 49;
     int expected = 49;
     int desired = 99;
-    bool success = __atomic_compare_exchange_n(&xchg_loc, &expected, desired, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+    bool success = __atomic_compare_exchange_n(&xchg_loc, &expected, desired, false, MMODEL, MMODEL);
     assert(success == true);
     assert(xchg_loc == desired);
 #else
@@ -74,7 +76,7 @@ void test_atomic_compare_exchange_n(void) {
 void test_atomic_add_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_add_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_add_fetch(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -85,7 +87,7 @@ void test_atomic_add_fetch(void) {
 void test_atomic_sub_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_sub_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_sub_fetch(&counter, 1, MMODEL);
     assert(counter == -1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -96,7 +98,7 @@ void test_atomic_sub_fetch(void) {
 void test_atomic_and_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_and_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_and_fetch(&counter, 1, MMODEL);
     assert(counter == 0);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -107,7 +109,7 @@ void test_atomic_and_fetch(void) {
 void test_atomic_xor_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_xor_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_xor_fetch(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -118,7 +120,7 @@ void test_atomic_xor_fetch(void) {
 void test_atomic_or_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_or_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_or_fetch(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -129,7 +131,7 @@ void test_atomic_or_fetch(void) {
 void test_atomic_nand_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_nand_fetch(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_nand_fetch(&counter, 1, MMODEL);
     assert(counter == -1);
 #endif
 }
@@ -139,7 +141,7 @@ void test_atomic_nand_fetch(void) {
 void test_atomic_fetch_add(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_add(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_add(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -150,7 +152,7 @@ void test_atomic_fetch_add(void) {
 void test_atomic_fetch_sub(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_sub(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_sub(&counter, 1, MMODEL);
     assert(counter == -1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -161,7 +163,7 @@ void test_atomic_fetch_sub(void) {
 void test_atomic_fetch_and(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_and(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_and(&counter, 1, MMODEL);
     assert(counter == 0);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -172,7 +174,7 @@ void test_atomic_fetch_and(void) {
 void test_atomic_fetch_xor(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_xor(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_xor(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -183,7 +185,7 @@ void test_atomic_fetch_xor(void) {
 void test_atomic_fetch_or(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_or(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_or(&counter, 1, MMODEL);
     assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
@@ -194,7 +196,7 @@ void test_atomic_fetch_or(void) {
 void test_atomic_fetch_nand(void) {
 #ifdef BUILTIN
     int counter = 0;
-    __atomic_fetch_nand(&counter, 1, __ATOMIC_SEQ_CST);
+    __atomic_fetch_nand(&counter, 1, MMODEL);
     assert(counter == -1);
 #endif
 }
@@ -206,8 +208,8 @@ void test_atomic_test_and_set(void) {
     // Only works for booleans
     bool val1 = false, *ptr1 = &val1, rval1;
     bool val2 = true, *ptr2 = &val2, rval2;
-    rval1 = __atomic_test_and_set(ptr1, __ATOMIC_SEQ_CST);
-    rval2 = __atomic_test_and_set(ptr2, __ATOMIC_SEQ_CST);
+    rval1 = __atomic_test_and_set(ptr1, MMODEL);
+    rval2 = __atomic_test_and_set(ptr2, MMODEL);
     assert(rval1 == false && val1 == true);
     assert(rval2 == true && val2 == true);
 #endif
@@ -216,8 +218,8 @@ void test_atomic_clear(void) {
 #ifdef BUILTIN
     bool val1 = true, *ptr1 = &val1;
     bool val2 = true, *ptr2 = &val2;
-    __atomic_clear(ptr1, __ATOMIC_SEQ_CST);
-    __atomic_clear(ptr2, __ATOMIC_SEQ_CST);
+    __atomic_clear(ptr1, MMODEL);
+    __atomic_clear(ptr2, MMODEL);
     assert(val1 == false);
     assert(val2 == false);
 #endif
@@ -227,7 +229,7 @@ void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
     int store;
     int load;
     store = 42;
-    __atomic_thread_fence(__ATOMIC_SEQ_CST);
+    __atomic_thread_fence(MMODEL);
     load = store;
     assert(load == store);
 #endif
@@ -237,7 +239,7 @@ void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
     int store;
     int load;
     store = 42;
-    __atomic_thread_fence(__ATOMIC_SEQ_CST);
+    __atomic_thread_fence(MMODEL);
     load = store;
     assert(load == store);
 #endif
