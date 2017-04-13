@@ -33,7 +33,7 @@ void test_atomic_store_n(void) {
     atomic_t store_loc;
     int store_val = 99;
     atomic_set(&store_loc, store_val);
-    assert(store_loc.counter == store_val); #endif
+    assert(store_loc.counter == store_val); 
 #endif
 }
 
@@ -86,66 +86,118 @@ void test_atomic_sub_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_sub_fetch(&counter, 1, __ATOMIC_SEQ_CST);
-    WARN_ON(counter != -1);
+    assert(counter == -1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
     atomic_sub(1, &counter);
-    WARN_ON(counter.counter != -1);
+    assert(counter.counter == -1);
 #endif
 }
 void test_atomic_and_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_and_fetch(&counter, 1, __ATOMIC_SEQ_CST);
-    WARN_ON(counter != 0);
+    assert(counter == 0);
 #else
     atomic_t counter = ATOMIC_INIT(0);
     atomic_and(1, &counter);
-    WARN_ON(counter.counter != 0);
+    assert(counter.counter == 0);
 #endif
 }
 void test_atomic_xor_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_xor_fetch(&counter, 1, __ATOMIC_SEQ_CST);
-    WARN_ON(counter != 1);
+    assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
     atomic_xor(1, &counter);
-    WARN_ON(counter.counter != 1);
+    assert(counter.counter == 1);
 #endif
 }
 void test_atomic_or_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_or_fetch(&counter, 1, __ATOMIC_SEQ_CST);
-    WARN_ON(counter != 1);
+    assert(counter == 1);
 #else
     atomic_t counter = ATOMIC_INIT(0);
     atomic_or(1, &counter);
-    WARN_ON(counter.counter != 1);
+    assert(counter.counter == 1);
 #endif
 }
 void test_atomic_nand_fetch(void) {
 #ifdef BUILTIN
     int counter = 0;
     __atomic_nand_fetch(&counter, 1, __ATOMIC_SEQ_CST);
-    WARN_ON(counter != 1);
-#else
-    atomic_t counter = ATOMIC_INIT(0);
-    atomic_nand(1, &counter);
-    WARN_ON(counter.counter != 1);
+    assert(counter == -1);
 #endif
 }
 /*----------------------------------------------------------------*/
 /*----fetch + operation ------------------------------------------*/
 /*----------------------------------------------------------------*/
-void test_atomic_fetch_add(void) {}
-void test_atomic_fetch_sub(void) {}
-void test_atomic_fetch_and(void) {}
-void test_atomic_fetch_xor(void) {}
-void test_atomic_fetch_or(void) {}
-void test_atomic_fetch_nand(void) {}
+void test_atomic_fetch_add(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_add(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_add(1, &counter);
+    assert(counter.counter == 1);
+#endif
+}
+void test_atomic_fetch_sub(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_sub(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == -1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_sub(1, &counter);
+    assert(counter.counter == -1);
+#endif
+}
+void test_atomic_fetch_and(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_and(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == 0);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_and(1, &counter);
+    assert(counter.counter == 0);
+#endif
+}
+void test_atomic_fetch_xor(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_xor(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_xor(1, &counter);
+    assert(counter.counter == 1);
+#endif
+}
+void test_atomic_fetch_or(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_or(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == 1);
+#else
+    atomic_t counter = ATOMIC_INIT(0);
+    atomic_or(1, &counter);
+    assert(counter.counter == 1);
+#endif
+}
+void test_atomic_fetch_nand(void) {
+#ifdef BUILTIN
+    int counter = 0;
+    __atomic_fetch_nand(&counter, 1, __ATOMIC_SEQ_CST);
+    assert(counter == -1);
+#endif
+}
 /*----------------------------------------------------------------*/
 /*----aux operations ---------------------------------------------*/
 /*----------------------------------------------------------------*/
@@ -233,6 +285,30 @@ void test_atomic_is_lock_free(void) {
 
 static int __init atomic_module_init(void) {
     printk(KERN_INFO "Hello world!\n");
+    test_atomic_add_fetch();
+    printk("test_atomic_add_fetch: done\n");
+    test_atomic_sub_fetch();
+    printk("test_atomic_sub_fetch: done\n");
+    test_atomic_and_fetch();
+    printk("test_atomic_and_fetch: done\n");
+    test_atomic_xor_fetch();
+    printk("test_atomic_xor_fetch: done\n");
+    test_atomic_or_fetch();
+    printk("test_atomic_or_fetch: done\n");
+    test_atomic_nand_fetch();
+    printk("test_atomic_nand_fetch: done\n");
+    test_atomic_fetch_add();
+    printk("test_atomic_fetch_add: done\n");
+    test_atomic_fetch_sub();
+    printk("test_atomic_fetch_sub: done\n");
+    test_atomic_fetch_and();
+    printk("test_atomic_fetch_and: done\n");
+    test_atomic_fetch_xor();
+    printk("test_atomic_fetch_xor: done\n");
+    test_atomic_fetch_or();
+    printk("test_atomic_fetch_or: done\n");
+    test_atomic_fetch_nand();
+    printk("test_atomic_fetch_nand: done\n");
     test_atomic_test_and_set();
     printk("test_atomic_test_and_set: done\n");
     test_atomic_clear();
