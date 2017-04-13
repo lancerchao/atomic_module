@@ -151,30 +151,101 @@ void test_atomic_fetch_nand(void) {}
 /*----------------------------------------------------------------*/
 void test_atomic_test_and_set(void) {
     // Only works for booleans
-    bool val = false, *ptr = &val, rval;
-    bool val2 = true, *ptr2 = &val, rval2;
+    bool val1 = false, *ptr1 = &val1, rval1;
+    bool val2 = true, *ptr2 = &val2, rval2;
 #ifdef BUILTIN
-    rval = __atomic_test_and_set(ptr, __ATOMIC_SEQ_CST);
+    rval1 = __atomic_test_and_set(ptr1, __ATOMIC_SEQ_CST);
     rval2 = __atomic_test_and_set(ptr2, __ATOMIC_SEQ_CST);
 #else
 
 #endif
-    assert(rval == false && val == true);
+    assert(rval1 == false && val1 == true);
     assert(rval2 == true && val2 == true);
-    printk("test_atomic_test_and_set: done");
 }
-void test_atomic_clear(void) {}
-void test_atomic_thread_fence(void) {}
-void test_atomic_signal_fence(void) {}
-void test_atomic_always_lock_free(void) {}
-void test_atomic_is_lock_free(void) {}
+void test_atomic_clear(void) {
+    bool val1 = true, *ptr1 = &val1;
+    bool val2 = true, *ptr2 = &val2;
+#ifdef BUILTIN
+    __atomic_clear(ptr1, __ATOMIC_SEQ_CST);
+    __atomic_clear(ptr2, __ATOMIC_SEQ_CST);
+#else
+
+#endif
+    assert(val1 == false);
+    assert(val2 == false);
+}
+void __attribute__((optimize("O0"))) test_atomic_thread_fence(void) {
+    int store;
+    int load;
+
+    store = 42;
+#ifdef BUILTIN
+    __atomic_thread_fence(__ATOMIC_SEQ_CST);
+#else
+#endif
+    load = store;
+    assert(load == store);
+}
+void __attribute__((optimize("O0"))) test_atomic_signal_fence(void) {
+    int store;
+    int load;
+
+    store = 42;
+#ifdef BUILTIN
+    __atomic_thread_fence(__ATOMIC_SEQ_CST);
+#else
+#endif
+    load = store;
+    assert(load == store);
+}
+void test_atomic_always_lock_free(void) {
+    size_t size1 = sizeof(int);
+    struct s{
+        int x, y,z;
+    };
+    size_t size2 = sizeof(struct s);
+    bool rval1, rval2;
+
+#ifdef BUILTIN
+    rval1 = __atomic_always_lock_free(size1, 0);
+    rval2 = __atomic_always_lock_free(size2, 0);
+#else
+#endif
+    assert(rval1 == true);
+    assert(rval2 == false);
+}
+void test_atomic_is_lock_free(void) {
+    size_t size1 = sizeof(int);
+    struct s{
+        int x, y,z;
+    };
+    size_t size2 = sizeof(struct s);
+    bool rval1, rval2;
+
+#ifdef BUILTIN
+    rval1 = __atomic_always_lock_free(size1, 0);
+    rval2 = __atomic_always_lock_free(size2, 0);
+#else
+#endif
+    assert(rval1 == true);
+    assert(rval2 == false);
+}
 
 static int __init atomic_module_init(void) {
     printk(KERN_INFO "Hello world!\n");
-    test_atomic_load_n();
-    test_atomic_store_n();
-    test_atomic_exchange_n();
-    test_atomic_compare_exchange_n();
+    test_atomic_test_and_set();
+    printk("test_atomic_test_and_set: done\n");
+    test_atomic_clear();
+    printk("test_atomic_clear: done\n");
+    test_atomic_thread_fence();
+    printk("test_atomic_thread_fence: done\n");
+    test_atomic_signal_fence();
+    printk("test_atomic_signal_fence: done\n");
+    test_atomic_always_lock_free();
+    printk("test_atomic_always_lock_free: done\n");
+    test_atomic_is_lock_free();
+    printk("test_atomic_is_lock_free: done\n");
+    // test_atomic_test_and_set();
     return 0;  // Non-zero return means that the module couldn't be loaded.
 }
 
