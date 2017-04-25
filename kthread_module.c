@@ -108,7 +108,7 @@ int init_module(void)
             detected++;
             printk(KERN_INFO "%d reorders detected after %d iterations\n", detected, iterations);
         }
-        printk(KERN_INFO "%d iterations\n");
+        printk(KERN_INFO "%d iterations\n", iterations);
     }
     kthread_stop(tids[0]);
     kthread_stop(tids[1]);
