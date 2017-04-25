@@ -12,6 +12,7 @@ MODULE_DESCRIPTION("kthreads");
 
 #define N 2
 #define NUM_ITER 1000000
+#define MEMORDER __ATOMIC_SEQ_CST
 struct semaphore beginSema1, beginSema2, endSema;
 
 #ifdef BUILTIN
@@ -35,7 +36,8 @@ static int thread1_routine(void *data)
         // ----- THE TRANSACTION! -----
 
 #ifdef BUILTIN
-        __atomic_store_n(&X, 1, __ATOMIC_SEQ_CST);
+        __atomic_store_n(&X, 1, MEMORDER);
+        r1 = __atomic_load_n(&Y, MEMORDER);
 #else
         atomic_set(&X, 1);
         asm volatile("" ::: "memory");  // Prevent compiler reordering
@@ -44,7 +46,7 @@ static int thread1_routine(void *data)
         up(&endSema);  // Notify transaction complete
     }
 
-while(!kthread_should_stop()){}
+    while(!kthread_should_stop()){}
     return 0; 
 }
 
@@ -59,7 +61,8 @@ static int thread2_routine(void *data)
         // ----- THE TRANSACTION! -----
 
 #ifdef BUILTIN
-        __atomic_store_n(&Y, 1, __ATOMIC_SEQ_CST);
+        __atomic_store_n(&Y, 1, MEMORDER);
+        r2 = __atomic_load_n(&X, MEMORDER);
 #else
         atomic_set(&Y, 1);
         asm volatile("" ::: "memory");  // Prevent compiler reordering
@@ -71,23 +74,7 @@ static int thread2_routine(void *data)
     while(!kthread_should_stop()){}
     return 0;  // Never returns
 }
-/*
-static void startThreads(void) {
-    long long i;
 
-    for (i = 0; i < N; i++) {
-        tids[i] = kthread_run(thread_routine, (void *)i, "spawn");
-    }
-}
-static bool join(void) {
-    int i;
-
-    for (i = 0; i < N; i++) {
-        if (done[i] == false) return false;
-    }
-    return true;
-}
-*/
 int init_module(void) 
 {
     int detected;
@@ -105,8 +92,6 @@ int init_module(void)
     tids[0] = kthread_run(thread1_routine, NULL, "spawn");
     tids[1] = kthread_run(thread2_routine, NULL, "spawn");
 
-    kthread_bind(tids[0], 0);
-    kthread_bind(tids[1], 1);
     // Repeat the experiment ad infinitum
     detected = 0;
     for (iterations = 1; iterations < NUM_ITER; iterations++)
