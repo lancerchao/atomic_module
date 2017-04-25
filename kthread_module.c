@@ -29,7 +29,8 @@ static int thread1_routine(void *data)
         }  // Add a short, random delay
  
         // ----- THE TRANSACTION! -----
-        __atomic_store_n(&X, 1, __ATOMIC_SEQ_CST);
+        //__atomic_store_n(&X, 1, __ATOMIC_SEQ_CST);
+        X = 1;
         //asm volatile("" ::: "memory");  // Prevent compiler reordering
         r1 = Y;
  
@@ -47,7 +48,8 @@ static int thread2_routine(void *data)
         }  // Add a short, random delay
  
         // ----- THE TRANSACTION! -----
-        __atomic_store_n(&Y, 1, __ATOMIC_SEQ_CST);
+        //__atomic_store_n(&Y, 1, __ATOMIC_SEQ_CST);
+        Y = 1;
         //asm volatile("" ::: "memory");  // Prevent compiler reordering
         r2 = X;
  
@@ -108,10 +110,14 @@ int init_module(void)
             detected++;
             printk(KERN_INFO "%d reorders detected after %d iterations\n", detected, iterations);
         }
-        printk(KERN_INFO "%d iterations\n", iterations);
+
+        if (iterations % 10000 == 0)
+            printk(KERN_INFO "%d iterations\n", iterations);
     }
     kthread_stop(tids[0]);
     kthread_stop(tids[1]);
+    up(&beginSema1);
+    up(&beginSema2);
     return 0;  // Never returns
 
 }
