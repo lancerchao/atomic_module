@@ -44,6 +44,7 @@ static int thread1_routine(void *data)
         up(&endSema);  // Notify transaction complete
     }
 
+while(!kthread_should_stop()){}
     return 0; 
 }
 
@@ -67,6 +68,7 @@ static int thread2_routine(void *data)
 
         up(&endSema);  // Notify transaction complete
     }
+    while(!kthread_should_stop()){}
     return 0;  // Never returns
 }
 /*
