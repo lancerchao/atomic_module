@@ -1,4 +1,4 @@
-obj-m += atomic_module.o
+obj-m += atomic_module.o kthread_module.o
 CFLAGS_atomic_module.o := -O2 -g -fno-inline -DBUILTINS
 
 all:
