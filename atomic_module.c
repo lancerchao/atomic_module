@@ -344,8 +344,20 @@ void test_atomic_is_lock_free(void) {
 #endif
 }
 
+/* assembly code to read the TSC */
+static inline uint64_t RDTSC(void)
+{
+  unsigned int hi, lo;
+  __asm__ volatile("rdtsc" : "=a" (lo), "=d" (hi));
+  return ((uint64_t)hi << 32) | lo;
+}
+
 static int __init atomic_module_init(void) {
+
+	uint64_t start_counter;
+    uint64_t end_counter;
     printk(KERN_INFO "Hello world!\n");
+    start_counter = RDTSC();
     test_atomic_add_fetch();
     printk("test_atomic_add_fetch: done\n");
     test_atomic_sub_fetch();
@@ -382,6 +394,8 @@ static int __init atomic_module_init(void) {
     printk("test_atomic_always_lock_free: done\n");
     test_atomic_is_lock_free();
     printk("test_atomic_is_lock_free: done\n");
+    end_counter = RDTSC();
+    printk("Start is %llu, end is %llu, diff is %llu\n", start_counter, end_counter, end_counter - start_counter);
     // test_atomic_test_and_set();
     return 0;  // Non-zero return means that the module couldn't be loaded.
 }
