@@ -10,7 +10,7 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Lance Chao");
 MODULE_DESCRIPTION("kthreads");
 
-#define N 4
+#define N 2
 #define NUM_ITER 1000000
 struct semaphore beginSema1, beginSema2, endSema;
 
@@ -105,7 +105,8 @@ int init_module(void)
     tids[0] = kthread_run(thread1_routine, NULL, "spawn");
     tids[1] = kthread_run(thread2_routine, NULL, "spawn");
 
- 
+    kthread_bind(tids[0], 0);
+    kthread_bind(tids[1], 1);
     // Repeat the experiment ad infinitum
     detected = 0;
     for (iterations = 1; iterations < NUM_ITER; iterations++)
